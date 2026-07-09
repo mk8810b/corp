@@ -1,0 +1,597 @@
+<!doctype html>
+<!--
+  Syntropia Research 社内向けポートフォリオダッシュボード（テンプレート）
+  =====================================================================
+  - このファイルは corp/dev/build_dashboard.py が読み込むテンプレートであり、
+    そのままブラウザで開くものではない（__EMBED_DATA_JSON__ が未置換のため）。
+  - ビルド: python3 corp/dev/build_dashboard.py
+    → corp/data/price-history.json / shadow-price-history.json を埋め込み、
+      corp/dev/dashboard.html を生成する。
+  - 設計は playbooks/dev.md に従う。外部リクエスト（CDN・fetch・画像URL）は禁止。
+  - 表示する数値は埋め込みデータ（＝台帳の実数値）と、そこからの固定式による
+    導出値（損益率・バリア距離）のみ（絶対制約第2条）。
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Syntropia Research — ポートフォリオダッシュボード</title>
+<style>
+  /* ---- カラートークン（dataviz参照パレット準拠・検証済み） ---- */
+  .viz-root {
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;   /* categorical slot 1: 価格ライン */
+    --good:           #0ca30c;   /* status good: 利確バリア */
+    --critical:       #d03b3b;   /* status critical: 損切りバリア */
+    --delta-up:       #006300;   /* 含み益テキスト */
+    --delta-down:     #d03b3b;   /* 含み損テキスト */
+    --badge-buy:      42,120,214;   /* slot1 blue */
+    --badge-watch:    237,161,0;    /* slot3 yellow */
+    --badge-pass:     137,135,129;  /* muted gray */
+    --tip-bg:         #0b0b0b;
+    --tip-ink:        #fcfcfb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .viz-root {
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --good:           #0ca30c;
+      --critical:       #e66767;
+      --delta-up:       #0ca30c;
+      --delta-down:     #e66767;
+      --badge-buy:      57,135,229;
+      --badge-watch:    201,133,0;
+      --badge-pass:     137,135,129;
+      --tip-bg:         #fcfcfb;
+      --tip-ink:        #0b0b0b;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    --surface-1:      #1a1a19;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --good:           #0ca30c;
+    --critical:       #e66767;
+    --delta-up:       #0ca30c;
+    --delta-down:     #e66767;
+    --badge-buy:      57,135,229;
+    --badge-watch:    201,133,0;
+    --badge-pass:     137,135,129;
+    --tip-bg:         #fcfcfb;
+    --tip-ink:        #0b0b0b;
+  }
+
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--page-body, #f9f9f7); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { background: #0d0d0d; } }
+  :root[data-theme="dark"] body { background: #0d0d0d; }
+
+  .viz-root {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page);
+    color: var(--text-primary);
+    padding: 28px 16px 56px;
+    max-width: 1080px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .viz-root h1 { font-size: 20px; font-weight: 650; margin: 0 0 2px; }
+  .viz-root .subtitle { color: var(--text-secondary); font-size: 13px; margin: 0 0 6px; }
+  .viz-root .meta-line { color: var(--text-muted); font-size: 11.5px; margin: 0 0 26px; }
+  .viz-root h2 {
+    font-size: 15px; font-weight: 650; margin: 34px 0 4px;
+  }
+  .viz-root .section-desc {
+    font-size: 12px; color: var(--text-secondary);
+    margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--grid);
+  }
+
+  /* ---- stat tiles ---- */
+  .viz-root .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 16px; }
+  .viz-root .stat-tile {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px 11px; flex: 1 1 150px; min-width: 150px;
+  }
+  .viz-root .stat-tile .label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+  .viz-root .stat-tile .value { font-size: 22px; font-weight: 650; }
+  .viz-root .stat-tile .value.small { font-size: 16px; padding-top: 4px; }
+  .viz-root .stat-tile .sub { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; }
+
+  /* ---- 空状態 ---- */
+  .viz-root .empty-state {
+    background: var(--surface-1); border: 1px dashed var(--baseline);
+    border-radius: 10px; padding: 28px 24px; color: var(--text-secondary); font-size: 13.5px;
+  }
+  .viz-root .empty-state .empty-title { font-weight: 650; color: var(--text-primary); margin-bottom: 4px; font-size: 14px; }
+
+  /* ---- 凡例 ---- */
+  .viz-root .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 11.5px; color: var(--text-secondary); margin: 0 0 6px; }
+  .viz-root .key {
+    display: inline-block; width: 16px; height: 0; vertical-align: middle;
+    margin-right: 6px; position: relative; top: -2px;
+  }
+  .viz-root .key-price   { border-top: 2px solid var(--series-1); }
+  .viz-root .key-entry   { border-top: 2px solid var(--baseline); }
+  .viz-root .key-sl      { border-top: 2px dashed var(--critical); }
+  .viz-root .key-tp      { border-top: 2px dashed var(--good); }
+  .viz-root .legend-note { font-size: 11px; color: var(--text-muted); margin: 0 0 14px; }
+
+  /* ---- カード ---- */
+  .viz-root .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .viz-root .card {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px 12px; min-width: 0;
+  }
+  .viz-root .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .viz-root .card-code { font-size: 15px; font-weight: 650; }
+  .viz-root .card-name { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .viz-root .badge {
+    font-size: 11px; font-weight: 650; padding: 2px 9px; border-radius: 999px;
+    white-space: nowrap; color: var(--text-primary); border: 1px solid transparent;
+  }
+  .viz-root .badge-BUY   { background: rgba(var(--badge-buy), 0.14);   border-color: rgba(var(--badge-buy), 0.45); }
+  .viz-root .badge-WATCH { background: rgba(var(--badge-watch), 0.16); border-color: rgba(var(--badge-watch), 0.50); }
+  .viz-root .badge-PASS  { background: rgba(var(--badge-pass), 0.14);  border-color: rgba(var(--badge-pass), 0.40); color: var(--text-secondary); }
+
+  .viz-root .price-row { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 1px; flex-wrap: wrap; }
+  .viz-root .price-now { font-size: 21px; font-weight: 650; }
+  .viz-root .price-delta { font-size: 13px; font-weight: 650; }
+  .viz-root .price-delta .vs { font-weight: 400; font-size: 11px; color: var(--text-muted); margin-left: 3px; }
+  .viz-root .delta-up   { color: var(--delta-up); }
+  .viz-root .delta-down { color: var(--delta-down); }
+  .viz-root .delta-flat { color: var(--text-muted); }
+  .viz-root .entry-note { font-size: 11px; color: var(--text-muted); margin: 0 0 8px; }
+
+  .viz-root .chart-wrap { margin: 2px 0 8px; }
+  .viz-root .chart-wrap svg { display: block; }
+  .viz-root .chart-dates { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+  .viz-root .barrier-row {
+    display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+    font-size: 11px; color: var(--text-secondary); font-variant-numeric: tabular-nums;
+    border-top: 1px solid var(--grid); padding-top: 8px; margin-top: 4px;
+  }
+  .viz-root .struct-note {
+    font-size: 10.5px; color: var(--text-muted); background: var(--page);
+    border-radius: 6px; padding: 6px 8px; margin-top: 8px; line-height: 1.55;
+  }
+
+  /* ---- テーブル ---- */
+  .viz-root details.table-toggle { margin-top: 14px; }
+  .viz-root details.table-toggle summary { cursor: pointer; font-size: 12.5px; color: var(--text-secondary); }
+  .viz-root .table-scroll { overflow-x: auto; margin-top: 8px; }
+  .viz-root table.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .viz-root table.data-table th, .viz-root table.data-table td {
+    text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .viz-root table.data-table th:nth-child(-n+4), .viz-root table.data-table td:nth-child(-n+4) {
+    text-align: left; font-variant-numeric: normal;
+  }
+  .viz-root table.data-table th { color: var(--text-muted); font-weight: 500; font-size: 11px; }
+
+  /* ---- ツールチップ ---- */
+  .viz-tooltip {
+    position: fixed; pointer-events: none; z-index: 10;
+    background: var(--tip-bg, #0b0b0b); color: var(--tip-ink, #fcfcfb);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 11px; line-height: 1.45; padding: 5px 9px; border-radius: 6px;
+    opacity: 0; transform: translate(-50%, calc(-100% - 10px));
+    transition: opacity 0.08s; max-width: 260px; white-space: nowrap;
+  }
+  .viz-tooltip .tip-value { font-weight: 650; font-size: 12px; }
+  .viz-tooltip .tip-sub { opacity: 0.75; white-space: normal; }
+
+  /* ---- フッター ---- */
+  .viz-root .footer {
+    margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--grid);
+    font-size: 11.5px; color: var(--text-muted); line-height: 1.75;
+  }
+  .viz-root .footer .disclaimer { color: var(--text-secondary); font-weight: 500; }
+
+  .viz-root svg circle:focus { outline: 2px solid var(--series-1); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <h1>ポートフォリオダッシュボード</h1>
+  <p class="subtitle">Syntropia Research 社内専用（CEO閲覧用） — 保有ポジションとシャドーポートフォリオの価格・損益トラッカー</p>
+  <p class="meta-line" id="meta-line"></p>
+
+  <h2>保有ポジション（実運用）</h2>
+  <p class="section-desc">corp/portfolio.md の状態=HELDのポジション。CEOが発注・約定し記録部へ報告したものだけが載る（絶対制約第1条: 本画面から発注はできない・しない）。</p>
+  <div id="real-stats" class="stat-row"></div>
+  <div id="real-portfolio"></div>
+
+  <h2>シャドーポートフォリオ（検証用・実資金ゼロ）</h2>
+  <p class="section-desc">corp/shadow-portfolio.md の仮想ポジション。投資判断部の判定関数（BUY/WATCH/PASS）の勝率を実測するための追跡であり、実際の売買を伴わない（D-012）。</p>
+  <div id="shadow-stats" class="stat-row"></div>
+  <div class="legend" id="shadow-legend">
+    <span><span class="key key-price"></span>価格（記録値）</span>
+    <span><span class="key key-entry"></span>仮想エントリー基準</span>
+    <span><span class="key key-sl"></span>損切りバリア（-10%）</span>
+    <span><span class="key key-tp"></span>利確バリア（+25%）</span>
+  </div>
+  <p class="legend-note" id="points-note"></p>
+  <div class="card-grid" id="shadow-cards"></div>
+
+  <details class="table-toggle">
+    <summary>テーブル表示（全件・チャートの代替ビュー）</summary>
+    <div class="table-scroll">
+      <table class="data-table" id="shadow-table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th><th scope="col">銘柄</th><th scope="col">判定</th><th scope="col">状態</th>
+            <th scope="col">仮想エントリー</th><th scope="col">現在値</th><th scope="col">損益率</th>
+            <th scope="col">損切り(-10%)</th><th scope="col">利確(+25%)</th><th scope="col">最終データ日</th><th scope="col">取得元</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="footer">
+    <span class="disclaimer">本ダッシュボードは情報提供・分析であり投資助言ではない。最終判断と結果責任はCEOに帰属する（絶対制約第5条）。</span><br>
+    社内専用ツールであり、第三者への配布・公開を前提としない（第5条・非公開原則）。<br>
+    表示価格は台帳・判断メモに記録された実取得値のみ（取得元・取得日時は各データポイントのツールチップとテーブルに表示。絶対制約第2条）。損益率・バリア距離はそこからの固定式による導出値。<br>
+    シャドーポートフォリオの仮想エントリーは判定関数の母集団の質を測る指標であり、WATCH/PASS判定の正誤を直接示すものではない（playbooks/shadow-portfolio.md）。<br>
+    <span id="footer-notes"></span>
+    生成: 開発部（DEV, playbooks/dev.md）／ 再生成手順: <code>python3 corp/dev/build_dashboard.py</code>（日次・週次ルーチン、corp/RUNBOOK.md）
+  </div>
+</div>
+
+<div class="viz-tooltip" id="viz-tooltip"><div class="tip-value"></div><div class="tip-sub"></div></div>
+
+<script>
+(function () {
+  "use strict";
+  /* ビルド時に corp/data/*.json がそのまま埋め込まれる（数値の改変なし） */
+  var DATA = __EMBED_DATA_JSON__;
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var tooltip = document.getElementById("viz-tooltip");
+  var tipValue = tooltip.querySelector(".tip-value");
+  var tipSub = tooltip.querySelector(".tip-sub");
+
+  /* ---------- 汎用 ---------- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+  function fmtPrice(v) {
+    return v.toLocaleString("ja-JP", { maximumFractionDigits: 2 }) + "円";
+  }
+  function fmtPct(v, digits) {
+    var d = digits === undefined ? 2 : digits;
+    return (v > 0 ? "+" : "") + v.toFixed(d) + "%";
+  }
+  function deltaClass(v) {
+    if (v > 0.005) return "delta-up";
+    if (v < -0.005) return "delta-down";
+    return "delta-flat";
+  }
+  function showTip(clientX, clientY, value, sub) {
+    tipValue.textContent = value;
+    tipSub.textContent = sub || "";
+    tooltip.style.left = clientX + "px";
+    tooltip.style.top = clientY + "px";
+    tooltip.style.opacity = "1";
+  }
+  function hideTip() { tooltip.style.opacity = "0"; }
+
+  /* ---------- チャート（カード内・単一系列の折れ線＋バリア閾値線） ---------- */
+  var chartRegistry = [];
+
+  function drawChart(wrap, pos) {
+    wrap.textContent = "";
+    var w = Math.max(wrap.clientWidth || 300, 160);
+    var h = 84, padX = 8, padY = 10;
+    var points = pos.points || [];
+    if (points.length === 0) {
+      wrap.appendChild(el("div", "entry-note", "価格データなし（取得不能または未記録）"));
+      return;
+    }
+    var prices = points.map(function (p) { return p.price; });
+    var lo = Math.min.apply(null, prices.concat([pos.stop_loss]));
+    var hi = Math.max.apply(null, prices.concat([pos.take_profit]));
+    if (hi === lo) { hi *= 1.05; lo *= 0.95; }
+    var span = hi - lo;
+    function x(i) { return points.length === 1 ? padX + 4 : padX + (i * (w - padX * 2)) / (points.length - 1); }
+    function y(v) { return h - padY - ((v - lo) / span) * (h - padY * 2); }
+
+    var svg = document.createElementNS(SVGNS, "svg");
+    svg.setAttribute("width", w); svg.setAttribute("height", h);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", pos.code + " " + (pos.name || "") + " 価格推移（詳細はテーブル表示を参照）");
+
+    function hline(yv, color, dash, width) {
+      var l = document.createElementNS(SVGNS, "line");
+      l.setAttribute("x1", 0); l.setAttribute("x2", w);
+      l.setAttribute("y1", yv); l.setAttribute("y2", yv);
+      l.setAttribute("stroke", color);
+      l.setAttribute("stroke-width", width || 1);
+      if (dash) l.setAttribute("stroke-dasharray", dash);
+      svg.appendChild(l);
+      return l;
+    }
+    hline(y(pos.take_profit), "var(--good)", "4,3", 1.5);
+    hline(y(pos.entry_price), "var(--baseline)", null, 1.5);
+    hline(y(pos.stop_loss), "var(--critical)", "4,3", 1.5);
+
+    if (points.length >= 2) {
+      var path = document.createElementNS(SVGNS, "path");
+      var d = points.map(function (p, i) {
+        return (i === 0 ? "M" : "L") + x(i).toFixed(1) + "," + y(p.price).toFixed(1);
+      }).join(" ");
+      path.setAttribute("d", d);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "var(--series-1)");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(path);
+    }
+
+    /* クロスヘア（ポインタ位置に最も近いXへスナップ） */
+    var crosshair = document.createElementNS(SVGNS, "line");
+    crosshair.setAttribute("y1", padY - 4); crosshair.setAttribute("y2", h - padY + 4);
+    crosshair.setAttribute("stroke", "var(--grid)");
+    crosshair.setAttribute("stroke-width", "1");
+    crosshair.style.display = "none";
+    svg.appendChild(crosshair);
+
+    function tipTextFor(p) {
+      var src = p.source ? "出典: " + p.source + (p.source_time ? "（" + p.source_time + "）" : "") : "";
+      return { value: fmtPrice(p.price) + "　" + p.date, sub: src };
+    }
+
+    points.forEach(function (p, i) {
+      var c = document.createElementNS(SVGNS, "circle");
+      var isLast = i === points.length - 1;
+      c.setAttribute("cx", x(i)); c.setAttribute("cy", y(p.price));
+      c.setAttribute("r", isLast ? 4.5 : 3.5);
+      c.setAttribute("fill", "var(--series-1)");
+      c.setAttribute("stroke", "var(--surface-1)");
+      c.setAttribute("stroke-width", "2");
+      c.setAttribute("tabindex", "0");
+      c.setAttribute("aria-label", p.date + " " + fmtPrice(p.price));
+      c.addEventListener("focus", function () {
+        var r = c.getBoundingClientRect();
+        var t = tipTextFor(p);
+        showTip(r.left + r.width / 2, r.top, t.value, t.sub);
+      });
+      c.addEventListener("blur", hideTip);
+      svg.appendChild(c);
+    });
+
+    /* svg全面をヒットターゲットにする（最近傍スナップ） */
+    svg.addEventListener("pointermove", function (evt) {
+      var rect = svg.getBoundingClientRect();
+      var px = evt.clientX - rect.left;
+      var best = 0, bestD = Infinity;
+      for (var i = 0; i < points.length; i++) {
+        var d2 = Math.abs(x(i) - px);
+        if (d2 < bestD) { bestD = d2; best = i; }
+      }
+      crosshair.setAttribute("x1", x(best)); crosshair.setAttribute("x2", x(best));
+      crosshair.style.display = "";
+      var t = tipTextFor(points[best]);
+      showTip(rect.left + x(best), rect.top + y(points[best].price), t.value, t.sub);
+    });
+    svg.addEventListener("pointerleave", function () {
+      crosshair.style.display = "none";
+      hideTip();
+    });
+
+    wrap.appendChild(svg);
+    if (points.length >= 2) {
+      var dates = el("div", "chart-dates");
+      dates.appendChild(el("span", null, points[0].date));
+      dates.appendChild(el("span", null, points[points.length - 1].date));
+      wrap.appendChild(dates);
+    }
+  }
+
+  /* ---------- ポジションカード（保有・シャドー共用） ---------- */
+  function buildCard(id, pos, opts) {
+    var card = el("div", "card");
+    var head = el("div", "card-head");
+    var idBox = el("div");
+    idBox.appendChild(el("div", "card-code", pos.code));
+    idBox.appendChild(el("div", "card-name", pos.name || ""));
+    head.appendChild(idBox);
+    var badges = el("div");
+    if (pos.verdict) badges.appendChild(el("span", "badge badge-" + pos.verdict, pos.verdict));
+    head.appendChild(badges);
+    card.appendChild(head);
+
+    var points = pos.points || [];
+    var last = points.length ? points[points.length - 1] : null;
+    var state = pos.state || "OPEN";
+
+    if (last) {
+      var deltaPct = ((last.price - pos.entry_price) / pos.entry_price) * 100;
+      var priceRow = el("div", "price-row");
+      priceRow.appendChild(el("span", "price-now", fmtPrice(last.price)));
+      var deltaSpan = el("span", "price-delta " + deltaClass(deltaPct), fmtPct(deltaPct));
+      var vs = el("span", "vs", "対" + opts.entryLabel);
+      deltaSpan.appendChild(vs);
+      priceRow.appendChild(deltaSpan);
+      card.appendChild(priceRow);
+    }
+
+    var noteText = opts.entryLabel + " " + fmtPrice(pos.entry_price) +
+      "（" + (pos.entry_date || (points[0] && points[0].date) || "-") + "）・状態: " + state;
+    if (state !== "OPEN" && pos.settle_date) {
+      noteText += "（決済 " + pos.settle_date + (pos.settle_price !== undefined ? " @ " + fmtPrice(pos.settle_price) : "") + "）";
+    }
+    if (pos.confidence) noteText += "・確信度: " + pos.confidence;
+    card.appendChild(el("div", "entry-note", noteText));
+
+    var chartWrap = el("div", "chart-wrap");
+    card.appendChild(chartWrap);
+    chartRegistry.push({ wrap: chartWrap, pos: pos });
+
+    if (last) {
+      var slPct = ((pos.stop_loss - last.price) / last.price) * 100;
+      var tpPct = ((pos.take_profit - last.price) / last.price) * 100;
+      var row = el("div", "barrier-row");
+      var slSpan = el("span");
+      slSpan.appendChild(el("span", "key key-sl"));
+      slSpan.appendChild(document.createTextNode("損切り " + fmtPrice(pos.stop_loss) + "（現在値から " + fmtPct(slPct, 1) + "）"));
+      var tpSpan = el("span");
+      tpSpan.appendChild(el("span", "key key-tp"));
+      tpSpan.appendChild(document.createTextNode("利確 " + fmtPrice(pos.take_profit) + "（" + fmtPct(tpPct, 1) + "）"));
+      row.appendChild(slSpan);
+      row.appendChild(tpSpan);
+      card.appendChild(row);
+    }
+
+    if (pos.note) card.appendChild(el("div", "struct-note", pos.note));
+    return card;
+  }
+
+  /* ---------- 保有ポジション ---------- */
+  function renderReal() {
+    var wrap = document.getElementById("real-portfolio");
+    var stats = document.getElementById("real-stats");
+    var positions = (DATA.portfolio && DATA.portfolio.positions) || {};
+    var ids = Object.keys(positions);
+    if (ids.length === 0) {
+      stats.remove();
+      var box = el("div", "empty-state");
+      box.appendChild(el("div", "empty-title", "現在保有ポジションはありません"));
+      box.appendChild(el("div", null,
+        "corp/portfolio.md（as of " + ((DATA.portfolio && DATA.portfolio.as_of) || "-") + "）に状態=HELDの行が0件のため、表示するデータがありません。" +
+        "CEOが実際に発注・約定し、記録部へ報告した時点でここにカードとチャートが表示されます（ダミー値では埋めない — 絶対制約第2条）。"));
+      wrap.appendChild(box);
+      return;
+    }
+    var tile = el("div", "stat-tile");
+    tile.appendChild(el("div", "label", "保有中ポジション"));
+    tile.appendChild(el("div", "value", String(ids.length) + "件"));
+    stats.appendChild(tile);
+    var grid = el("div", "card-grid");
+    ids.forEach(function (id) {
+      grid.appendChild(buildCard(id, positions[id], { entryLabel: "エントリー" }));
+    });
+    wrap.appendChild(grid);
+  }
+
+  /* ---------- シャドーポートフォリオ ---------- */
+  function renderShadow() {
+    var positions = (DATA.shadow && DATA.shadow.positions) || {};
+    var ids = Object.keys(positions);
+    var stats = document.getElementById("shadow-stats");
+    var grid = document.getElementById("shadow-cards");
+    var tbody = document.querySelector("#shadow-table tbody");
+
+    var counts = { BUY: 0, WATCH: 0, PASS: 0 };
+    var open = 0, settled = 0, wins = 0;
+    var allSinglePoint = ids.length > 0;
+
+    ids.forEach(function (id) {
+      var pos = positions[id];
+      if (counts[pos.verdict] !== undefined) counts[pos.verdict] += 1;
+      var state = pos.state || "OPEN";
+      if (state === "OPEN") open += 1; else { settled += 1; if (state === "HIT_PROFIT") wins += 1; }
+      if ((pos.points || []).length !== 1) allSinglePoint = false;
+
+      grid.appendChild(buildCard(id, pos, { entryLabel: "仮想エントリー" }));
+
+      var points = pos.points || [];
+      var last = points.length ? points[points.length - 1] : null;
+      var tr = document.createElement("tr");
+      function td(text) { var c = document.createElement("td"); c.textContent = text; tr.appendChild(c); }
+      td(id);
+      td(pos.code + " " + (pos.name || ""));
+      td(pos.verdict || "-");
+      td(state);
+      td(fmtPrice(pos.entry_price));
+      td(last ? fmtPrice(last.price) : "データなし");
+      td(last ? fmtPct(((last.price - pos.entry_price) / pos.entry_price) * 100) : "-");
+      td(fmtPrice(pos.stop_loss));
+      td(fmtPrice(pos.take_profit));
+      td(last ? last.date : "-");
+      td(last ? (last.source || "-") : "-");
+      tbody.appendChild(tr);
+    });
+
+    function tile(label, value, sub, small) {
+      var t = el("div", "stat-tile");
+      t.appendChild(el("div", "label", label));
+      t.appendChild(el("div", "value" + (small ? " small" : ""), value));
+      if (sub) t.appendChild(el("div", "sub", sub));
+      stats.appendChild(t);
+    }
+    tile("追跡中（OPEN）", open + "件", "全" + ids.length + "件を登録済み");
+    tile("判定内訳", "BUY " + counts.BUY + " ／ WATCH " + counts.WATCH + " ／ PASS " + counts.PASS, "判定日の記録価格で仮想エントリー", true);
+    tile("決済済み", settled + "件", "HIT_PROFIT / HIT_LOSS / EXPIRED の合計");
+    tile("勝率", settled === 0 ? "—" : ((wins / settled) * 100).toFixed(1) + "%",
+      settled === 0 ? "決済0件のため算定不能（統計的判定の目安は約102件決済）" : "HIT_PROFIT ÷ 決済済み件数（目安: 約102件決済で統計判定）");
+
+    var note = document.getElementById("points-note");
+    if (allSinglePoint) {
+      note.textContent = "現在の時系列は登録初日の1点のみ（各点にホバー/フォーカスで取得元・取得日時を表示）。価格ポイントは日次ルーチンの価格照合で蓄積される。";
+    } else {
+      note.textContent = "各点にホバー/フォーカスで日付・価格・取得元を表示。";
+    }
+  }
+
+  /* ---------- メタ情報・フッター ---------- */
+  function renderMeta() {
+    var pAsOf = (DATA.portfolio && DATA.portfolio.as_of) || "-";
+    var sAsOf = (DATA.shadow && DATA.shadow.as_of) || "-";
+    var asOf = pAsOf === sAsOf ? pAsOf : ("保有 " + pAsOf + " ／ シャドー " + sAsOf);
+    document.getElementById("meta-line").textContent =
+      "データ基準日: " + asOf + "　｜　出典: corp/portfolio.md・corp/shadow-portfolio.md・corp/data/price-history.json・corp/data/shadow-price-history.json";
+    var hasStructNote = Object.keys((DATA.shadow && DATA.shadow.positions) || {}).some(function (id) {
+      return DATA.shadow.positions[id].note;
+    });
+    if (hasStructNote) {
+      document.getElementById("footer-notes").textContent =
+        "注記付き銘柄（5803・285A・9984等）はD-013の構造的除外によりwatchlist上はCLOSEDだが、判定関数の検証目的でシャドーポートフォリオでは追跡を継続している。";
+      document.getElementById("footer-notes").appendChild(document.createElement("br"));
+    }
+  }
+
+  renderMeta();
+  renderReal();
+  renderShadow();
+  chartRegistry.forEach(function (c) { drawChart(c.wrap, c.pos); });
+
+  var resizeTimer = null;
+  window.addEventListener("resize", function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      chartRegistry.forEach(function (c) { drawChart(c.wrap, c.pos); });
+    }, 150);
+  });
+})();
+</script>
+</body>
+</html>

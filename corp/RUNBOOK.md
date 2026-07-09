@@ -30,13 +30,20 @@
    5. 成立の有無にかかわらず、巡回した銘柄の「最終確認日」を当日に更新する
       （台帳の行は削除しない。運用ルールの詳細は `corp/watchlist.md` 冒頭を参照）。
 3. `corp/portfolio.md`（保有ポジション台帳、状態=HELD）・`corp/watchlist.md` 記載銘柄の
-   株価鮮度チェック（数値実在原則に基づき、取得元・取得日時を更新。台帳の「時価」列を更新する）。
+   株価鮮度チェック（数値実在原則に基づき、取得元・取得日時を更新。台帳の「時価」列を更新する。
+   同時に `corp/data/price-history.json` へ当日の価格ポイントを追記する — D-014）。
 4. 前日までに記録部（`playbooks/logging.md`）へ記録された約定・株価変動から、
    リスク上限（D-002・D-011）への抵触がないかの機械照合（`playbooks/risk-check.md`）。
 5. **シャドーポートフォリオの価格照合**（D-012、`playbooks/shadow-portfolio.md`）:
    `corp/shadow-portfolio.md` の状態=`OPEN`の仮想ポジションについて当日株価を取得し、
    -10%/+25%バリアへの到達を確認する。到達していれば`HIT_LOSS`/`HIT_PROFIT`に更新し
-   決済価格・決済日を記録する。
+   決済価格・決済日を記録する。同時に `corp/data/shadow-price-history.json` へ当日の
+   価格ポイントを追記する（D-014）。
+6. **ダッシュボードの再生成**（開発部DEV、D-014、`playbooks/dev.md` §6-1）: 3・5で
+   `corp/data/*.json` が更新された場合、`python3 corp/dev/build_dashboard.py` を実行して
+   `corp/dev/dashboard.html` を再生成する（決定論的な定型作業・Haiku可）。CEOが閲覧用の
+   常設URL（Artifact）の維持を指示している場合のみ、同一URLへ再デプロイする。
+   データ更新が無い日はこの工程をスキップしてよい。
 
 ## 週次ルーチン
 
@@ -62,11 +69,16 @@
    場合は優先度（上振れ余地スコア）が最も低い銘柄から順に、超過分を`CLOSED`化し日次巡回対象
    から除外する（同スコア内はWATCH判定日が古い順）。20銘柄以下ならこの工程はスキップする。
 7. **シャドーポートフォリオの新規登録**（D-012）: 今週校閲確定した全ての判断メモ
-   （BUY/WATCH/PASSいずれも）を `corp/shadow-portfolio.md` に仮想ポジションとして追加する
-   （運用ルールは同ファイル・`playbooks/shadow-portfolio.md` を参照）。
+   （BUY/WATCH/PASSいずれも）を `corp/shadow-portfolio.md` に仮想ポジションとして追加し、
+   `corp/data/shadow-price-history.json` にも初期価格ポイントを追記する（運用ルールは
+   同ファイル・`playbooks/shadow-portfolio.md` を参照）。
 8. 記録部（`playbooks/logging.md`）が週間サマリ（提案数・機械照合の却下件数・シャドー
    ポートフォリオの当週決済件数と勝率・TOPIX(配当込み)対比の超過リターン・LLM運用コスト概算
    など）を記録する（D-012）。※これはKPIダッシュボードではなく、記録部の定型ログである。
+9. **ダッシュボードの再生成**（開発部DEV、D-014、`playbooks/dev.md` §6-1）: 週内の
+   新規ポジション・シャドーポートフォリオ登録・決済が `corp/data/*.json` に反映されて
+   いることを確認した上で `python3 corp/dev/build_dashboard.py` を実行し、
+   `corp/dev/dashboard.html` を再生成する（Haiku可。常設URL運用中は同一URLへ再デプロイ）。
 
 ## イベント駆動ルーチン
 
