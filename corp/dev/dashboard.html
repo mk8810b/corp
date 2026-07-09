@@ -220,7 +220,8 @@
   <p class="meta-line" id="meta-line"></p>
 
   <h2>保有ポジション（実運用）</h2>
-  <p class="section-desc">corp/portfolio.md の状態=HELDのポジション。CEOが発注・約定し記録部へ報告したものだけが載る（絶対制約第1条: 本画面から発注はできない・しない）。</p>
+  <p class="section-desc">corp/portfolio.md の状態=HELDのポジション。CEOが発注・約定し記録部へ報告したものだけが載る（絶対制約第1条: 本画面から発注はできない・しない）。リスク枠の正本は corp/board.md（D-002・D-011・D-015）。</p>
+  <div id="risk-stats" class="stat-row"></div>
   <div id="real-stats" class="stat-row"></div>
   <div id="real-portfolio"></div>
 
@@ -450,6 +451,7 @@
       noteText += "（決済 " + pos.settle_date + (pos.settle_price !== undefined ? " @ " + fmtPrice(pos.settle_price) : "") + "）";
     }
     if (pos.confidence) noteText += "・確信度: " + pos.confidence;
+    if (typeof pos.weight_pct === "number") noteText += "・投入比率: " + pos.weight_pct + "%";
     card.appendChild(el("div", "entry-note", noteText));
 
     var chartWrap = el("div", "chart-wrap");
@@ -473,6 +475,40 @@
 
     if (pos.note) card.appendChild(el("div", "struct-note", pos.note));
     return card;
+  }
+
+  /* ---------- リスク枠タイル（D-015。ルール定数の転記＋台帳値からの固定式導出のみ） ---------- */
+  function renderRiskLimits() {
+    var stats = document.getElementById("risk-stats");
+    var positions = (DATA.portfolio && DATA.portfolio.positions) || {};
+    var held = Object.keys(positions)
+      .map(function (id) { return positions[id]; })
+      .filter(function (p) { return p.state !== "CLOSED"; });
+
+    var weightsOk = held.every(function (p) { return typeof p.weight_pct === "number"; });
+    var sumW = held.reduce(function (a, p) { return a + (p.weight_pct || 0); }, 0);
+    function pctOrNA(mult) {
+      if (held.length === 0) return "0.00%";
+      if (!weightsOk) return "算定不能";
+      return (sumW * mult).toFixed(2) + "%";
+    }
+    var heldNote = held.length === 0 ? "保有0件" : "HELD " + held.length + "件・露出 " + (weightsOk ? sumW.toFixed(1) + "%" : "算定不能（投入比率の記録なし）");
+
+    function tile(label, value, sub, small) {
+      var t = el("div", "stat-tile");
+      t.appendChild(el("div", "label", label));
+      t.appendChild(el("div", "value" + (small ? " small" : ""), value));
+      if (sub) t.appendChild(el("div", "sub", sub));
+      stats.appendChild(t);
+    }
+    tile("サイジング方式", "比例（現在資金残高基準）",
+      "投入比率の分母＝現金＋保有時価評価額（D-015）。確信度連動 高10%／中5%／低3%（D-011）", true);
+    tile("想定最大同時損失（PML）上限", "5.0%",
+      "Σ(投入比率×損切り幅10%) ≤ 資金の5%（D-015。機械照合はリスク管理部）");
+    tile("現在のPML", pctOrNA(0.10),
+      "全HELDが同時に-10%損切りした場合の資金比損失（" + heldNote + "）");
+    tile("ストレスシナリオ", pctOrNA(0.25),
+      "全HELD同時-25%ギャップの仮定シナリオ（表示のみ・機械照合対象外。D-015）");
   }
 
   /* ---------- 保有ポジション ---------- */
@@ -580,6 +616,7 @@
   }
 
   renderMeta();
+  renderRiskLimits();
   renderReal();
   renderShadow();
   chartRegistry.forEach(function (c) { drawChart(c.wrap, c.pos); });
