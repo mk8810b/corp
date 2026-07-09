@@ -13,6 +13,21 @@
 - 許可されたデータソース（無料IR、EDINET、公開情報。`corp/board.md` D-003参照）
 - 過去の同一銘柄に関する調査メモ（あれば。重複調査を避けるため）
 
+## EDINET（適時開示・有価証券報告書・臨時報告書等）の取得方法
+
+EDINETの通常Web UI（`disclosure2.edinet-fsa.go.jp`）は`WebFetch`/`curl`ではJSレンダリング前の
+シェルしか返らず本文取得ができない（`corp/RUNBOOK.md`「既知の技術的制約」節に記録）。
+**本文取得は必ず `corp/tools/edinet_fetch.py`（EDINET公式APIを利用する自社ツール、D-012対応）を
+使用する。** jpx.co.jp・kabutan.jp等の他サイトの取得方法（`curl`によるワークアラウンド等）は
+従来どおり`corp/RUNBOOK.md`を参照。
+
+- 証券コードから直近N日分の開示書類一覧を検索: `python3 corp/tools/edinet_fetch.py --code <証券コード> --days 7`
+- 書類本体（XBRL/PDF/CSV等）のダウンロード: `python3 corp/tools/edinet_fetch.py --doc-id <docID> --doc-type 2`
+- 利用にはEDINET公式APIキー（環境変数 `EDINET_API_KEY`）が必要。未設定の場合はツールが登録手順
+  （CEO対応が必要な旨）をエラーメッセージで表示するので、その指示に従いCEOへ確認する
+  （詳細は `corp/RUNBOOK.md`「EDINET API連携ツールの整備」節）。
+- 証券コード→EDINETコードの解決自体はAPIキー不要（`--resolve-only`で動作確認可能）。
+
 ## 出力
 
 - 企業調査メモ（事業概要・直近財務・競合比較・注目リスク要因）
