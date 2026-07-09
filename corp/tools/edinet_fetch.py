@@ -57,6 +57,7 @@ import datetime as dt
 import io
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -158,6 +159,17 @@ def _build_url(path: str, params: dict) -> str:
     return f"{BASE_URL}{path}?{query}" if query else f"{BASE_URL}{path}"
 
 
+def _redact_url(url: str) -> str:
+    """出典URLとして記録・表示する前にAPIキーを伏せ字にする。
+
+    絶対制約第2条は取得元URLの記録を求めるが、APIキーは機密情報であり、判断メモ・
+    調査メモ・エラーメッセージ経由でgit管理下のファイルに漏洩させてはならない。
+    実際のHTTPリクエストには生のキーを使うが、ログ・出典表示・例外メッセージには
+    このredact済みの文字列だけを使うこと。
+    """
+    return re.sub(r"(?i)(Subscription-Key=)[^&]+", r"\1***REDACTED***", url)
+
+
 # ---------------------------------------------------------------------------
 # 1. 証券コード ⇔ EDINETコードの解決（EDINETコードリスト、認証不要・公開データ）
 # ---------------------------------------------------------------------------
@@ -246,10 +258,10 @@ def list_documents_by_date(date: str, doc_type: int = 2, api_key: Optional[str] 
             )
         raise EdinetAPIError(
             f"EDINET API（書類一覧API）がエラーを返しました: status={status}, message={message} "
-            f"(取得元: {url}, 取得日時: {fetched_at})"
+            f"(取得元: {_redact_url(url)}, 取得日時: {fetched_at})"
         )
 
-    data["_source_url"] = url
+    data["_source_url"] = _redact_url(url)
     data["_fetched_at"] = fetched_at
     return data
 
@@ -357,7 +369,7 @@ def download_document(
             )
         raise EdinetAPIError(
             f"EDINET API（書類取得API）がエラーを返しました: doc_id={doc_id}, type={doc_type}, "
-            f"message={message} (取得元: {url}, 取得日時: {fetched_at})"
+            f"message={message} (取得元: {_redact_url(url)}, 取得日時: {fetched_at})"
         )
 
     ext = ".pdf" if content_type.startswith("application/pdf") else ".zip"
@@ -373,7 +385,7 @@ def download_document(
         "content_type": content_type,
         "size_bytes": len(body),
         "out_path": str(out_path),
-        "source_url": url,
+        "source_url": _redact_url(url),
         "fetched_at": fetched_at,
     }
 
