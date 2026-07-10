@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-09",
+  "as_of": "2026-07-10",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -16,6 +16,12 @@
           "price": 11,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-09 13:01"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 11,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -33,6 +39,12 @@
           "price": 20,
           "source": "企業調査メモ記載値",
           "source_time": "2026-07-09"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 20,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -50,6 +62,12 @@
           "price": 149.4,
           "source": "finance.yahoo.co.jp/quote/9432.T",
           "source_time": "2026-07-09"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 148.0,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -67,6 +85,12 @@
           "price": 25,
           "source": "判断メモ記載値（Yahoo!ファイナンス）",
           "source_time": "2026-07-09"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 26,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -84,6 +108,12 @@
           "price": 215.2,
           "source": "finance.yahoo.co.jp/quote/9434.T",
           "source_time": "2026-07-09 13:21"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 211.8,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -102,6 +132,12 @@
           "price": 4960,
           "source": "kabutan.jp（curl取得）",
           "source_time": "2026-07-09 13:06-13:08"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 5160,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -120,6 +156,12 @@
           "price": 77290,
           "source": "nikkei.com/marketdata",
           "source_time": "2026-07-09"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 75950,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     },
@@ -138,6 +180,12 @@
           "price": 5751,
           "source": "finance.yahoo.co.jp/quote/9984.T",
           "source_time": "2026-07-09 13:25"
+        },
+        {
+          "date": "2026-07-10",
+          "price": 6391,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-10 15:21"
         }
       ]
     }
