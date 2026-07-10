@@ -549,6 +549,7 @@
     var counts = { BUY: 0, WATCH: 0, PASS: 0 };
     var open = 0, settled = 0, wins = 0;
     var allSinglePoint = ids.length > 0;
+    var openRetSum = 0, openRetCount = 0;
 
     ids.forEach(function (id) {
       var pos = positions[id];
@@ -556,6 +557,14 @@
       var state = pos.state || "OPEN";
       if (state === "OPEN") open += 1; else { settled += 1; if (state === "HIT_PROFIT") wins += 1; }
       if ((pos.points || []).length !== 1) allSinglePoint = false;
+      if (state === "OPEN") {
+        var pts = pos.points || [];
+        var lastPt = pts.length ? pts[pts.length - 1] : null;
+        if (lastPt) {
+          openRetSum += ((lastPt.price - pos.entry_price) / pos.entry_price) * 100;
+          openRetCount += 1;
+        }
+      }
 
       grid.appendChild(buildCard(id, pos, { entryLabel: "仮想エントリー" }));
 
@@ -589,6 +598,18 @@
     tile("決済済み", settled + "件", "HIT_PROFIT / HIT_LOSS / EXPIRED の合計");
     tile("勝率", settled === 0 ? "—" : ((wins / settled) * 100).toFixed(1) + "%",
       settled === 0 ? "決済0件のため算定不能（統計的判定の目安は約102件決済）" : "HIT_PROFIT ÷ 決済済み件数（目安: 約102件決済で統計判定）");
+    (function () {
+      var avg = openRetCount === 0 ? null : openRetSum / openRetCount;
+      var t = el("div", "stat-tile");
+      t.appendChild(el("div", "label", "OPEN分の平均含み損益率"));
+      var v = el("div", "value" + (avg === null ? " small" : ""), avg === null ? "—" : fmtPct(avg));
+      if (avg !== null) v.classList.add(deltaClass(avg));
+      t.appendChild(v);
+      t.appendChild(el("div", "sub", avg === null
+        ? "OPEN 0件のため算定不能"
+        : "OPEN " + openRetCount + "件の(現在値/仮想エントリー-1)を等金額仮定で単純平均（株数は追跡しない — D-012）"));
+      stats.appendChild(t);
+    })();
 
     var note = document.getElementById("points-note");
     if (allSinglePoint) {
