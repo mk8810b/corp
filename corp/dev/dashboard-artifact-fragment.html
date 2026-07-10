@@ -520,9 +520,24 @@
   }
 
   /* ---------- シャドーポートフォリオ ---------- */
+  function retPct(pos) {
+    var pts = pos.points || [];
+    if (!pts.length) return null;
+    var last = pts[pts.length - 1];
+    return ((last.price - pos.entry_price) / pos.entry_price) * 100;
+  }
+
   function renderShadow() {
     var positions = (DATA.shadow && DATA.shadow.positions) || {};
     var ids = Object.keys(positions);
+    /* 損益率（現在値/仮想エントリー-1）が多い順。データなし（retがnull）は末尾に固定 */
+    ids.sort(function (a, b) {
+      var ra = retPct(positions[a]), rb = retPct(positions[b]);
+      if (ra === null && rb === null) return 0;
+      if (ra === null) return 1;
+      if (rb === null) return -1;
+      return rb - ra;
+    });
     var stats = document.getElementById("shadow-stats");
     var grid = document.getElementById("shadow-cards");
     var tbody = document.querySelector("#shadow-table tbody");
