@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-10",
+  "as_of": "2026-07-11",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -186,6 +186,108 @@
           "price": 6391,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        }
+      ]
+    },
+    "SP-009": {
+      "code": "5240",
+      "name": "(株)ｍｏｎｏＡＩ technologies",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 180,
+      "stop_loss": 162.0,
+      "take_profit": 225.0,
+      "points": [
+        {
+          "date": "2026-07-11",
+          "price": 180,
+          "source": "kabutan.jp・Yahoo!ファイナンス（企業調査部RSH-S01）",
+          "source_time": "2026-07-11"
+        }
+      ]
+    },
+    "SP-010": {
+      "code": "3856",
+      "name": "(株)Ａバランス",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 532,
+      "stop_loss": 478.8,
+      "take_profit": 665.0,
+      "points": [
+        {
+          "date": "2026-07-11",
+          "price": 532,
+          "source": "kabutan.jp（企業調査部RSH-S02、判断メモ校閲時に判定基準日株価を追記）",
+          "source_time": "2026-07-11"
+        }
+      ]
+    },
+    "SP-011": {
+      "code": "5491",
+      "name": "日本金属(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 876,
+      "stop_loss": 788.4,
+      "take_profit": 1095.0,
+      "points": [
+        {
+          "date": "2026-07-11",
+          "price": 876,
+          "source": "kabutan.jp（企業調査部RSH-S03）",
+          "source_time": "2026-07-11"
+        }
+      ]
+    },
+    "SP-012": {
+      "code": "7215",
+      "name": "(株)ファルテック",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 408,
+      "stop_loss": 367.2,
+      "take_profit": 510.0,
+      "points": [
+        {
+          "date": "2026-07-11",
+          "price": 408,
+          "source": "kabutan.jp・Yahoo!ファイナンス（企業調査部RSH-S04）",
+          "source_time": "2026-07-11"
+        }
+      ]
+    },
+    "SP-013": {
+      "code": "7211",
+      "name": "三菱自動車(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 361.8,
+      "stop_loss": 325.62,
+      "take_profit": 452.25,
+      "points": [
+        {
+          "date": "2026-07-11",
+          "price": 361.8,
+          "source": "finance.yahoo.co.jp/stocks/ranking/volume（企業調査部RSH-S05）",
+          "source_time": "2026-07-11"
+        }
+      ]
+    },
+    "SP-014": {
+      "code": "3350",
+      "name": "(株)メタプラネット",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 248,
+      "stop_loss": 223.2,
+      "take_profit": 310.0,
+      "points": [
+        {
+          "date": "2026-07-11",
+          "price": 248,
+          "source": "kabutan.jp（企業調査部RSH-S06）",
+          "source_time": "2026-07-11"
         }
       ]
     }
