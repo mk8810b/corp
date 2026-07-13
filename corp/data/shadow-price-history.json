@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-11",
+  "as_of": "2026-07-13",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -22,6 +22,12 @@
           "price": 11,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 10,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -45,6 +51,12 @@
           "price": 20,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 20,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -68,6 +80,12 @@
           "price": 148.0,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 148.9,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -91,6 +109,12 @@
           "price": 26,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 27,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -114,6 +138,12 @@
           "price": 211.8,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 213.9,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -138,6 +168,12 @@
           "price": 5160,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 4978,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -145,7 +181,7 @@
       "code": "285A",
       "name": "キオクシアホールディングス(株)",
       "verdict": "WATCH",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 77290,
       "stop_loss": 69561.0,
       "take_profit": 96612.5,
@@ -162,8 +198,16 @@
           "price": 75950,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 66410,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
-      ]
+      ],
+      "settle_date": "2026-07-13",
+      "settle_price": 66410
     },
     "SP-008": {
       "code": "9984",
@@ -186,6 +230,12 @@
           "price": 6391,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-10 15:21"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 6324,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -193,7 +243,7 @@
       "code": "5240",
       "name": "(株)ｍｏｎｏＡＩ technologies",
       "verdict": "PASS",
-      "state": "OPEN",
+      "state": "HIT_PROFIT",
       "entry_price": 180,
       "stop_loss": 162.0,
       "take_profit": 225.0,
@@ -203,8 +253,16 @@
           "price": 180,
           "source": "kabutan.jp・Yahoo!ファイナンス（企業調査部RSH-S01）",
           "source_time": "2026-07-11"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 230,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
-      ]
+      ],
+      "settle_date": "2026-07-13",
+      "settle_price": 230
     },
     "SP-010": {
       "code": "3856",
@@ -220,6 +278,12 @@
           "price": 532,
           "source": "kabutan.jp（企業調査部RSH-S02、判断メモ校閲時に判定基準日株価を追記）",
           "source_time": "2026-07-11"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 503,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -237,6 +301,12 @@
           "price": 876,
           "source": "kabutan.jp（企業調査部RSH-S03）",
           "source_time": "2026-07-11"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 867,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -254,6 +324,12 @@
           "price": 408,
           "source": "kabutan.jp・Yahoo!ファイナンス（企業調査部RSH-S04）",
           "source_time": "2026-07-11"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 411,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -271,6 +347,12 @@
           "price": 361.8,
           "source": "finance.yahoo.co.jp/stocks/ranking/volume（企業調査部RSH-S05）",
           "source_time": "2026-07-11"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 371.7,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     },
@@ -288,6 +370,12 @@
           "price": 248,
           "source": "kabutan.jp（企業調査部RSH-S06）",
           "source_time": "2026-07-11"
+        },
+        {
+          "date": "2026-07-13",
+          "price": 234,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-13 15:19"
         }
       ]
     }
