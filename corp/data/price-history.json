@@ -1,5 +1,5 @@
 {
   "_comment": "保有ポジション(corp/portfolio.md)の価格時系列。日次ルーチンの価格鮮度チェックで追記する。現時点で保有ポジションは0件のため空。スキーマは playbooks/dev.md を参照（shadow-price-history.jsonと共通のポイント形式）。",
-  "as_of": "2026-07-15",
+  "as_of": "2026-07-16",
   "positions": {}
 }

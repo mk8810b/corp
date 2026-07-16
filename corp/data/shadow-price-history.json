@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-15",
+  "as_of": "2026-07-16",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -40,6 +40,12 @@
           "price": 11,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 11,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -81,6 +87,12 @@
           "price": 20,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 21,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -122,6 +134,12 @@
           "price": 149.8,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 151.1,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -163,6 +181,12 @@
           "price": 28,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 27,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -204,6 +228,12 @@
           "price": 220.4,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 218.8,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -246,6 +276,12 @@
           "price": 5128,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 4793,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -320,6 +356,12 @@
           "price": 6328,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 5945,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -380,6 +422,12 @@
           "price": 511,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 495,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -415,6 +463,12 @@
           "price": 888,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 887,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -450,6 +504,12 @@
           "price": 414,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 414,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -485,6 +545,12 @@
           "price": 370.1,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 386.8,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     },
@@ -520,6 +586,12 @@
           "price": 246,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-15 15:35"
+        },
+        {
+          "date": "2026-07-16",
+          "price": 234,
+          "source": "kabutan.jp（curl取得, UA指定）",
+          "source_time": "2026-07-16 15:34"
         }
       ]
     }
