@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-16",
+  "as_of": "2026-07-17",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -46,6 +46,12 @@
           "price": 11,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 10,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -93,6 +99,12 @@
           "price": 21,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 20,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -140,6 +152,12 @@
           "price": 151.1,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 151.2,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -187,6 +205,12 @@
           "price": 27,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 27,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -234,6 +258,12 @@
           "price": 218.8,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 218.9,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -241,7 +271,7 @@
       "code": "5803",
       "name": "(株)フジクラ",
       "verdict": "WATCH",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 4960,
       "stop_loss": 4464.0,
       "take_profit": 6200.0,
@@ -282,8 +312,16 @@
           "price": 4793,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 4463,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
-      ]
+      ],
+      "settle_date": "2026-07-17",
+      "settle_price": 4463
     },
     "SP-007": {
       "code": "285A",
@@ -362,6 +400,12 @@
           "price": 5945,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 5421,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -394,7 +438,7 @@
       "code": "3856",
       "name": "(株)Ａバランス",
       "verdict": "PASS",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 532,
       "stop_loss": 478.8,
       "take_profit": 665.0,
@@ -428,8 +472,16 @@
           "price": 495,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 476,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
-      ]
+      ],
+      "settle_date": "2026-07-17",
+      "settle_price": 476
     },
     "SP-011": {
       "code": "5491",
@@ -469,6 +521,12 @@
           "price": 887,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 889,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -510,6 +568,12 @@
           "price": 414,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 413,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -551,6 +615,12 @@
           "price": 386.8,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 381.5,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
       ]
     },
@@ -558,7 +628,7 @@
       "code": "3350",
       "name": "(株)メタプラネット",
       "verdict": "PASS",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 248,
       "stop_loss": 223.2,
       "take_profit": 310.0,
@@ -592,8 +662,16 @@
           "price": 234,
           "source": "kabutan.jp（curl取得, UA指定）",
           "source_time": "2026-07-16 15:34"
+        },
+        {
+          "date": "2026-07-17",
+          "price": 222,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-17 15:40"
         }
-      ]
+      ],
+      "settle_date": "2026-07-17",
+      "settle_price": 222
     }
   }
 }
