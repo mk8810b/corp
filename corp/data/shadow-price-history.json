@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-22",
+  "as_of": "2026-07-23",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -125,6 +125,12 @@
           "price": 19,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 20,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -190,6 +196,12 @@
           "price": 151.7,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 149.3,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -255,6 +267,12 @@
           "price": 27,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 29,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -320,6 +338,12 @@
           "price": 221.1,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 218.5,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -474,6 +498,12 @@
           "price": 5698,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 5883,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -607,6 +637,12 @@
           "price": 901,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 905,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -666,6 +702,12 @@
           "price": 416,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 418,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -725,6 +767,12 @@
           "price": 384.1,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 372.8,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -834,6 +882,12 @@
           "price": 233,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 225,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -841,7 +895,7 @@
       "code": "598A",
       "name": "(株)チャットプラス",
       "verdict": "WATCH",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 2284,
       "stop_loss": 2055.6,
       "take_profit": 2855.0,
@@ -863,8 +917,16 @@
           "price": 2285,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 2044,
+          "source": "kabutan.jp確定終値ページ（複数回取得で2,053円/2,044円が混在）+ minkabu.jp（2,044円で一致確認）",
+          "source_time": "2026-07-23 15:40"
         }
-      ]
+      ],
+      "settle_date": "2026-07-23",
+      "settle_price": 2044
     },
     "SP-018": {
       "code": "7138",
@@ -892,6 +954,12 @@
           "price": 148,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 141,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -946,6 +1014,12 @@
           "price": 222,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 223,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -975,6 +1049,12 @@
           "price": 157,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 160,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -1004,6 +1084,12 @@
           "price": 334.6,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 330.7,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -1033,6 +1119,12 @@
           "price": 159.5,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 156.9,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     },
@@ -1062,6 +1154,12 @@
           "price": 507.7,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-22 15:40"
+        },
+        {
+          "date": "2026-07-23",
+          "price": 514.8,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-23 15:40"
         }
       ]
     }
