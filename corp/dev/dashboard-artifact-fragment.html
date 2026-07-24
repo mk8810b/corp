@@ -1,0 +1,671 @@
+<title>Syntropia Research — ポートフォリオダッシュボード</title>
+<style>
+  /* ---- カラートークン（dataviz参照パレット準拠・検証済み） ---- */
+  .viz-root {
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;   /* categorical slot 1: 価格ライン */
+    --good:           #0ca30c;   /* status good: 利確バリア */
+    --critical:       #d03b3b;   /* status critical: 損切りバリア */
+    --delta-up:       #006300;   /* 含み益テキスト */
+    --delta-down:     #d03b3b;   /* 含み損テキスト */
+    --badge-buy:      42,120,214;   /* slot1 blue */
+    --badge-watch:    237,161,0;    /* slot3 yellow */
+    --badge-pass:     137,135,129;  /* muted gray */
+    --tip-bg:         #0b0b0b;
+    --tip-ink:        #fcfcfb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .viz-root {
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --good:           #0ca30c;
+      --critical:       #e66767;
+      --delta-up:       #0ca30c;
+      --delta-down:     #e66767;
+      --badge-buy:      57,135,229;
+      --badge-watch:    201,133,0;
+      --badge-pass:     137,135,129;
+      --tip-bg:         #fcfcfb;
+      --tip-ink:        #0b0b0b;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    --surface-1:      #1a1a19;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --grid:           #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --good:           #0ca30c;
+    --critical:       #e66767;
+    --delta-up:       #0ca30c;
+    --delta-down:     #e66767;
+    --badge-buy:      57,135,229;
+    --badge-watch:    201,133,0;
+    --badge-pass:     137,135,129;
+    --tip-bg:         #fcfcfb;
+    --tip-ink:        #0b0b0b;
+  }
+
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--page-body, #f9f9f7); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) body { background: #0d0d0d; } }
+  :root[data-theme="dark"] body { background: #0d0d0d; }
+
+  .viz-root {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page);
+    color: var(--text-primary);
+    padding: 28px 16px 56px;
+    max-width: 1080px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .viz-root h1 { font-size: 20px; font-weight: 650; margin: 0 0 2px; }
+  .viz-root .subtitle { color: var(--text-secondary); font-size: 13px; margin: 0 0 6px; }
+  .viz-root .meta-line { color: var(--text-muted); font-size: 11.5px; margin: 0 0 26px; }
+  .viz-root h2 {
+    font-size: 15px; font-weight: 650; margin: 34px 0 4px;
+  }
+  .viz-root .section-desc {
+    font-size: 12px; color: var(--text-secondary);
+    margin: 0 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--grid);
+  }
+
+  /* ---- stat tiles ---- */
+  .viz-root .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 16px; }
+  .viz-root .stat-tile {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px 11px; flex: 1 1 150px; min-width: 150px;
+  }
+  .viz-root .stat-tile .label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+  .viz-root .stat-tile .value { font-size: 22px; font-weight: 650; }
+  .viz-root .stat-tile .value.small { font-size: 16px; padding-top: 4px; }
+  .viz-root .stat-tile .sub { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; }
+
+  /* ---- 空状態 ---- */
+  .viz-root .empty-state {
+    background: var(--surface-1); border: 1px dashed var(--baseline);
+    border-radius: 10px; padding: 28px 24px; color: var(--text-secondary); font-size: 13.5px;
+  }
+  .viz-root .empty-state .empty-title { font-weight: 650; color: var(--text-primary); margin-bottom: 4px; font-size: 14px; }
+
+  /* ---- 凡例 ---- */
+  .viz-root .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 11.5px; color: var(--text-secondary); margin: 0 0 6px; }
+  .viz-root .key {
+    display: inline-block; width: 16px; height: 0; vertical-align: middle;
+    margin-right: 6px; position: relative; top: -2px;
+  }
+  .viz-root .key-price   { border-top: 2px solid var(--series-1); }
+  .viz-root .key-entry   { border-top: 2px solid var(--baseline); }
+  .viz-root .key-sl      { border-top: 2px dashed var(--critical); }
+  .viz-root .key-tp      { border-top: 2px dashed var(--good); }
+  .viz-root .legend-note { font-size: 11px; color: var(--text-muted); margin: 0 0 14px; }
+
+  /* ---- カード ---- */
+  .viz-root .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .viz-root .card {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px 12px; min-width: 0;
+  }
+  .viz-root .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .viz-root .card-code { font-size: 15px; font-weight: 650; }
+  .viz-root .card-name { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+  .viz-root .badge {
+    font-size: 11px; font-weight: 650; padding: 2px 9px; border-radius: 999px;
+    white-space: nowrap; color: var(--text-primary); border: 1px solid transparent;
+  }
+  .viz-root .badge-BUY   { background: rgba(var(--badge-buy), 0.14);   border-color: rgba(var(--badge-buy), 0.45); }
+  .viz-root .badge-WATCH { background: rgba(var(--badge-watch), 0.16); border-color: rgba(var(--badge-watch), 0.50); }
+  .viz-root .badge-PASS  { background: rgba(var(--badge-pass), 0.14);  border-color: rgba(var(--badge-pass), 0.40); color: var(--text-secondary); }
+
+  .viz-root .price-row { display: flex; align-items: baseline; gap: 8px; margin: 8px 0 1px; flex-wrap: wrap; }
+  .viz-root .price-now { font-size: 21px; font-weight: 650; }
+  .viz-root .price-delta { font-size: 13px; font-weight: 650; }
+  .viz-root .price-delta .vs { font-weight: 400; font-size: 11px; color: var(--text-muted); margin-left: 3px; }
+  .viz-root .delta-up   { color: var(--delta-up); }
+  .viz-root .delta-down { color: var(--delta-down); }
+  .viz-root .delta-flat { color: var(--text-muted); }
+  .viz-root .entry-note { font-size: 11px; color: var(--text-muted); margin: 0 0 8px; }
+
+  .viz-root .chart-wrap { margin: 2px 0 8px; }
+  .viz-root .chart-wrap svg { display: block; }
+  .viz-root .chart-dates { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+  .viz-root .barrier-row {
+    display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+    font-size: 11px; color: var(--text-secondary); font-variant-numeric: tabular-nums;
+    border-top: 1px solid var(--grid); padding-top: 8px; margin-top: 4px;
+  }
+  .viz-root .struct-note {
+    font-size: 10.5px; color: var(--text-muted); background: var(--page);
+    border-radius: 6px; padding: 6px 8px; margin-top: 8px; line-height: 1.55;
+  }
+
+  /* ---- テーブル ---- */
+  .viz-root details.table-toggle { margin-top: 14px; }
+  .viz-root details.table-toggle summary { cursor: pointer; font-size: 12.5px; color: var(--text-secondary); }
+  .viz-root .table-scroll { overflow-x: auto; margin-top: 8px; }
+  .viz-root table.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .viz-root table.data-table th, .viz-root table.data-table td {
+    text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--grid);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .viz-root table.data-table th:nth-child(-n+4), .viz-root table.data-table td:nth-child(-n+4) {
+    text-align: left; font-variant-numeric: normal;
+  }
+  .viz-root table.data-table th { color: var(--text-muted); font-weight: 500; font-size: 11px; }
+
+  /* ---- ツールチップ ---- */
+  .viz-tooltip {
+    position: fixed; pointer-events: none; z-index: 10;
+    background: var(--tip-bg, #0b0b0b); color: var(--tip-ink, #fcfcfb);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 11px; line-height: 1.45; padding: 5px 9px; border-radius: 6px;
+    opacity: 0; transform: translate(-50%, calc(-100% - 10px));
+    transition: opacity 0.08s; max-width: 260px; white-space: nowrap;
+  }
+  .viz-tooltip .tip-value { font-weight: 650; font-size: 12px; }
+  .viz-tooltip .tip-sub { opacity: 0.75; white-space: normal; }
+
+  /* ---- フッター ---- */
+  .viz-root .footer {
+    margin-top: 44px; padding-top: 14px; border-top: 1px solid var(--grid);
+    font-size: 11.5px; color: var(--text-muted); line-height: 1.75;
+  }
+  .viz-root .footer .disclaimer { color: var(--text-secondary); font-weight: 500; }
+
+  .viz-root svg circle:focus { outline: 2px solid var(--series-1); outline-offset: 2px; }
+</style>
+
+<div class="viz-root">
+  <h1>ポートフォリオダッシュボード</h1>
+  <p class="subtitle">Syntropia Research 社内専用（CEO閲覧用） — 保有ポジションとシャドーポートフォリオの価格・損益トラッカー</p>
+  <p class="meta-line" id="meta-line"></p>
+
+  <h2>保有ポジション（実運用）</h2>
+  <p class="section-desc">corp/portfolio.md の状態=HELDのポジション。CEOが発注・約定し記録部へ報告したものだけが載る（絶対制約第1条: 本画面から発注はできない・しない）。リスク枠の正本は corp/board.md（D-002・D-011・D-015）。</p>
+  <div id="risk-stats" class="stat-row"></div>
+  <div id="real-stats" class="stat-row"></div>
+  <div id="real-portfolio"></div>
+
+  <h2>シャドーポートフォリオ（検証用・実資金ゼロ）</h2>
+  <p class="section-desc">corp/shadow-portfolio.md の仮想ポジション。投資判断部の判定関数（BUY/WATCH/PASS）の勝率を実測するための追跡であり、実際の売買を伴わない（D-012）。</p>
+  <div id="shadow-stats" class="stat-row"></div>
+  <div class="legend" id="shadow-legend">
+    <span><span class="key key-price"></span>価格（記録値）</span>
+    <span><span class="key key-entry"></span>仮想エントリー基準</span>
+    <span><span class="key key-sl"></span>損切りバリア（-10%）</span>
+    <span><span class="key key-tp"></span>利確バリア（+25%）</span>
+  </div>
+  <p class="legend-note" id="points-note"></p>
+  <div class="card-grid" id="shadow-cards"></div>
+
+  <details class="table-toggle">
+    <summary>テーブル表示（全件・チャートの代替ビュー）</summary>
+    <div class="table-scroll">
+      <table class="data-table" id="shadow-table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th><th scope="col">銘柄</th><th scope="col">判定</th><th scope="col">状態</th>
+            <th scope="col">仮想エントリー</th><th scope="col">現在値</th><th scope="col">損益率</th>
+            <th scope="col">損切り(-10%)</th><th scope="col">利確(+25%)</th><th scope="col">最終データ日</th><th scope="col">取得元</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+
+  <div class="footer">
+    <span class="disclaimer">本ダッシュボードは情報提供・分析であり投資助言ではない。最終判断と結果責任はCEOに帰属する（絶対制約第5条）。</span><br>
+    社内専用ツールであり、第三者への配布・公開を前提としない（第5条・非公開原則）。<br>
+    表示価格は台帳・判断メモに記録された実取得値のみ（取得元・取得日時は各データポイントのツールチップとテーブルに表示。絶対制約第2条）。損益率・バリア距離はそこからの固定式による導出値。<br>
+    シャドーポートフォリオの仮想エントリーは判定関数の母集団の質を測る指標であり、WATCH/PASS判定の正誤を直接示すものではない（playbooks/shadow-portfolio.md）。<br>
+    <span id="footer-notes"></span>
+    生成: 開発部（DEV, playbooks/dev.md）／ 再生成手順: <code>python3 corp/dev/build_dashboard.py</code>（日次・週次ルーチン、corp/RUNBOOK.md）
+  </div>
+</div>
+
+<div class="viz-tooltip" id="viz-tooltip"><div class="tip-value"></div><div class="tip-sub"></div></div>
+
+<script>
+(function () {
+  "use strict";
+  /* ビルド時に corp/data/*.json がそのまま埋め込まれる（数値の改変なし） */
+  var DATA = {"portfolio": {"_comment": "保有ポジション(corp/portfolio.md)の価格時系列。日次ルーチンの価格鮮度チェックで追記する。現時点で保有ポジションは0件のため空。スキーマは playbooks/dev.md を参照（shadow-price-history.jsonと共通のポイント形式）。", "as_of": "2026-07-17", "positions": {}}, "shadow": {"_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。", "as_of": "2026-07-24", "positions": {"SP-001": {"code": "8918", "name": "(株)ランド", "verdict": "WATCH", "state": "HIT_LOSS", "entry_price": 11, "stop_loss": 9.9, "take_profit": 13.75, "points": [{"date": "2026-07-09", "price": 11, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-09 13:01"}, {"date": "2026-07-10", "price": 11, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 10, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 11, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 11, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 11, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 10, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 9, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}], "settle_date": "2026-07-21", "settle_price": 9}, "SP-002": {"code": "4564", "name": "オンコセラピー・サイエンス(株)", "verdict": "PASS", "state": "OPEN", "entry_price": 20, "stop_loss": 18.0, "take_profit": 25.0, "points": [{"date": "2026-07-09", "price": 20, "source": "企業調査メモ記載値", "source_time": "2026-07-09"}, {"date": "2026-07-10", "price": 20, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 20, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 19, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 20, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 21, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 20, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 20, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 19, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 20, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 20, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-003": {"code": "9432", "name": "NTT(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 149.4, "stop_loss": 134.46, "take_profit": 186.75, "points": [{"date": "2026-07-09", "price": 149.4, "source": "finance.yahoo.co.jp/quote/9432.T", "source_time": "2026-07-09"}, {"date": "2026-07-10", "price": 148.0, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 148.9, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 150.5, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 149.8, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 151.1, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 151.2, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 152.0, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 151.7, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 149.3, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 150.9, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-004": {"code": "4597", "name": "ソレイジア・ファーマ(株)", "verdict": "PASS", "state": "OPEN", "entry_price": 25, "stop_loss": 22.5, "take_profit": 31.25, "points": [{"date": "2026-07-09", "price": 25, "source": "判断メモ記載値（Yahoo!ファイナンス）", "source_time": "2026-07-09"}, {"date": "2026-07-10", "price": 26, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 27, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 27, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 28, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 27, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 27, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 28, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 27, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 29, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 29, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-005": {"code": "9434", "name": "ソフトバンク(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 215.2, "stop_loss": 193.68, "take_profit": 269.0, "points": [{"date": "2026-07-09", "price": 215.2, "source": "finance.yahoo.co.jp/quote/9434.T", "source_time": "2026-07-09 13:21"}, {"date": "2026-07-10", "price": 211.8, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 213.9, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 219.1, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 220.4, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 218.8, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 218.9, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 222.2, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 221.1, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 218.5, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 220.7, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-006": {"code": "5803", "name": "(株)フジクラ", "verdict": "WATCH", "state": "HIT_LOSS", "entry_price": 4960, "stop_loss": 4464.0, "take_profit": 6200.0, "note": "D-013によりwatchlist上はCLOSED（単元株制度上購入不能）。シャドーポートフォリオは判定関数の勝率検証が目的のため引き続き追跡する。", "points": [{"date": "2026-07-09", "price": 4960, "source": "kabutan.jp（curl取得）", "source_time": "2026-07-09 13:06-13:08"}, {"date": "2026-07-10", "price": 5160, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 4978, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 4817, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 5128, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 4793, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 4463, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}], "settle_date": "2026-07-17", "settle_price": 4463}, "SP-007": {"code": "285A", "name": "キオクシアホールディングス(株)", "verdict": "WATCH", "state": "HIT_LOSS", "entry_price": 77290, "stop_loss": 69561.0, "take_profit": 96612.5, "note": "D-013によりwatchlist上はCLOSED（単元株制度上購入不能）。シャドーポートフォリオは判定関数の勝率検証が目的のため引き続き追跡する。", "points": [{"date": "2026-07-09", "price": 77290, "source": "nikkei.com/marketdata", "source_time": "2026-07-09"}, {"date": "2026-07-10", "price": 75950, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 66410, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}], "settle_date": "2026-07-13", "settle_price": 66410}, "SP-008": {"code": "9984", "name": "ソフトバンクグループ(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 5751, "stop_loss": 5175.9, "take_profit": 7188.75, "note": "D-013によりwatchlist上はCLOSED（単元株制度上購入不能）。シャドーポートフォリオは判定関数の勝率検証が目的のため引き続き追跡する。", "points": [{"date": "2026-07-09", "price": 5751, "source": "finance.yahoo.co.jp/quote/9984.T", "source_time": "2026-07-09 13:25"}, {"date": "2026-07-10", "price": 6391, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-10 15:21"}, {"date": "2026-07-13", "price": 6324, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 6514, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 6328, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 5945, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 5421, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 5706, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 5698, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 5883, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 5475, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-009": {"code": "5240", "name": "(株)ｍｏｎｏＡＩ technologies", "verdict": "PASS", "state": "HIT_PROFIT", "entry_price": 180, "stop_loss": 162.0, "take_profit": 225.0, "points": [{"date": "2026-07-11", "price": 180, "source": "kabutan.jp・Yahoo!ファイナンス（企業調査部RSH-S01）", "source_time": "2026-07-11"}, {"date": "2026-07-13", "price": 230, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}], "settle_date": "2026-07-13", "settle_price": 230}, "SP-010": {"code": "3856", "name": "(株)Ａバランス", "verdict": "PASS", "state": "HIT_LOSS", "entry_price": 532, "stop_loss": 478.8, "take_profit": 665.0, "points": [{"date": "2026-07-11", "price": 532, "source": "kabutan.jp（企業調査部RSH-S02、判断メモ校閲時に判定基準日株価を追記）", "source_time": "2026-07-11"}, {"date": "2026-07-13", "price": 503, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 505, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 511, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 495, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 476, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}], "settle_date": "2026-07-17", "settle_price": 476}, "SP-011": {"code": "5491", "name": "日本金属(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 876, "stop_loss": 788.4, "take_profit": 1095.0, "points": [{"date": "2026-07-11", "price": 876, "source": "kabutan.jp（企業調査部RSH-S03）", "source_time": "2026-07-11"}, {"date": "2026-07-13", "price": 867, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 878, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 888, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 887, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 889, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 901, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 901, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 905, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 890, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-012": {"code": "7215", "name": "(株)ファルテック", "verdict": "PASS", "state": "OPEN", "entry_price": 408, "stop_loss": 367.2, "take_profit": 510.0, "points": [{"date": "2026-07-11", "price": 408, "source": "kabutan.jp・Yahoo!ファイナンス（企業調査部RSH-S04）", "source_time": "2026-07-11"}, {"date": "2026-07-13", "price": 411, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 412, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 414, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 414, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 413, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 417, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 416, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 418, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 417, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-013": {"code": "7211", "name": "三菱自動車(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 361.8, "stop_loss": 325.62, "take_profit": 452.25, "points": [{"date": "2026-07-11", "price": 361.8, "source": "finance.yahoo.co.jp/stocks/ranking/volume（企業調査部RSH-S05）", "source_time": "2026-07-11"}, {"date": "2026-07-13", "price": 371.7, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 358.1, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 370.1, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 386.8, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 381.5, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}, {"date": "2026-07-21", "price": 390.8, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 384.1, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 372.8, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 344.6, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-014": {"code": "3350", "name": "(株)メタプラネット", "verdict": "PASS", "state": "HIT_LOSS", "entry_price": 248, "stop_loss": 223.2, "take_profit": 310.0, "points": [{"date": "2026-07-11", "price": 248, "source": "kabutan.jp（企業調査部RSH-S06）", "source_time": "2026-07-11"}, {"date": "2026-07-13", "price": 234, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-13 15:19"}, {"date": "2026-07-14", "price": 247, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-14 15:18"}, {"date": "2026-07-15", "price": 246, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-15 15:35"}, {"date": "2026-07-16", "price": 234, "source": "kabutan.jp（curl取得, UA指定）", "source_time": "2026-07-16 15:34"}, {"date": "2026-07-17", "price": 222, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-17 15:40"}], "settle_date": "2026-07-17", "settle_price": 222}, "SP-015": {"code": "5242", "name": "(株)アイズ", "verdict": "WATCH", "state": "HIT_PROFIT", "entry_price": 1230, "stop_loss": 1107.0, "take_profit": 1537.5, "points": [{"date": "2026-07-18", "price": 1230, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 1395, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 1600, "source": "kabutan.jp確定終値ページ（複数回取得で1,600円/1,544円が混在）+ minkabu.jp（1,600円で一致確認）", "source_time": "2026-07-22 15:40"}], "settle_date": "2026-07-22", "settle_price": 1600}, "SP-016": {"code": "9439", "name": "(株)エム・エイチ・グループ", "verdict": "PASS", "state": "OPEN", "entry_price": 247, "stop_loss": 222.3, "take_profit": 308.75, "points": [{"date": "2026-07-18", "price": 247, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 250, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 233, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 225, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 224, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-017": {"code": "598A", "name": "(株)チャットプラス", "verdict": "WATCH", "state": "HIT_LOSS", "entry_price": 2284, "stop_loss": 2055.6, "take_profit": 2855.0, "points": [{"date": "2026-07-18", "price": 2284, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 2784, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 2285, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 2044, "source": "kabutan.jp確定終値ページ（複数回取得で2,053円/2,044円が混在）+ minkabu.jp（2,044円で一致確認）", "source_time": "2026-07-23 15:40"}], "settle_date": "2026-07-23", "settle_price": 2044}, "SP-018": {"code": "7138", "name": "(株)ＴＯＲＩＣＯ", "verdict": "PASS", "state": "OPEN", "entry_price": 141, "stop_loss": 126.9, "take_profit": 176.25, "points": [{"date": "2026-07-18", "price": 141, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 161, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 148, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 141, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 129, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-019": {"code": "5216", "name": "(株)倉元製作所", "verdict": "WATCH", "state": "HIT_LOSS", "entry_price": 184, "stop_loss": 165.6, "take_profit": 230.0, "points": [{"date": "2026-07-18", "price": 184, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 165, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}], "settle_date": "2026-07-21", "settle_price": 165}, "SP-020": {"code": "7359", "name": "(株)東京通信グループ", "verdict": "WATCH", "state": "OPEN", "entry_price": 236, "stop_loss": 212.4, "take_profit": 295.0, "points": [{"date": "2026-07-18", "price": 236, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 227, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 222, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 223, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 223, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-021": {"code": "6619", "name": "(株)ダブル・スコープ", "verdict": "PASS", "state": "OPEN", "entry_price": 158, "stop_loss": 142.2, "take_profit": 197.5, "points": [{"date": "2026-07-18", "price": 158, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 153, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 157, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 160, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 156, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-022": {"code": "7201", "name": "日産自動車(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 329.3, "stop_loss": 296.37, "take_profit": 411.625, "points": [{"date": "2026-07-18", "price": 329.3, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 332.6, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 334.6, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 330.7, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 321.7, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-023": {"code": "8729", "name": "ソニーフィナンシャルグループ(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 154.7, "stop_loss": 139.23, "take_profit": 193.375, "points": [{"date": "2026-07-18", "price": 154.7, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 158.8, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 159.5, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 156.9, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 154.1, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}, "SP-024": {"code": "9501", "name": "東京電力ホールディングス(株)", "verdict": "WATCH", "state": "OPEN", "entry_price": 506.6, "stop_loss": 455.94, "take_profit": 633.25, "points": [{"date": "2026-07-18", "price": 506.6, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-18（判定基準日2026-07-17大引け後の確定終値）"}, {"date": "2026-07-21", "price": 503.0, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-21 15:40"}, {"date": "2026-07-22", "price": 507.7, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-22 15:40"}, {"date": "2026-07-23", "price": 514.8, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-23 15:40"}, {"date": "2026-07-24", "price": 516.4, "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）", "source_time": "2026-07-24 15:40"}]}}}};
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var tooltip = document.getElementById("viz-tooltip");
+  var tipValue = tooltip.querySelector(".tip-value");
+  var tipSub = tooltip.querySelector(".tip-sub");
+
+  /* ---------- 汎用 ---------- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+  function fmtPrice(v) {
+    return v.toLocaleString("ja-JP", { maximumFractionDigits: 2 }) + "円";
+  }
+  function fmtPct(v, digits) {
+    var d = digits === undefined ? 2 : digits;
+    return (v > 0 ? "+" : "") + v.toFixed(d) + "%";
+  }
+  function deltaClass(v) {
+    if (v > 0.005) return "delta-up";
+    if (v < -0.005) return "delta-down";
+    return "delta-flat";
+  }
+  function showTip(clientX, clientY, value, sub) {
+    tipValue.textContent = value;
+    tipSub.textContent = sub || "";
+    tooltip.style.left = clientX + "px";
+    tooltip.style.top = clientY + "px";
+    tooltip.style.opacity = "1";
+  }
+  function hideTip() { tooltip.style.opacity = "0"; }
+
+  /* ---------- チャート（カード内・単一系列の折れ線＋バリア閾値線） ---------- */
+  var chartRegistry = [];
+
+  function drawChart(wrap, pos) {
+    wrap.textContent = "";
+    var w = Math.max(wrap.clientWidth || 300, 160);
+    var h = 84, padX = 8, padY = 10;
+    var points = pos.points || [];
+    if (points.length === 0) {
+      wrap.appendChild(el("div", "entry-note", "価格データなし（取得不能または未記録）"));
+      return;
+    }
+    var prices = points.map(function (p) { return p.price; });
+    var lo = Math.min.apply(null, prices.concat([pos.stop_loss]));
+    var hi = Math.max.apply(null, prices.concat([pos.take_profit]));
+    if (hi === lo) { hi *= 1.05; lo *= 0.95; }
+    var span = hi - lo;
+    function x(i) { return points.length === 1 ? padX + 4 : padX + (i * (w - padX * 2)) / (points.length - 1); }
+    function y(v) { return h - padY - ((v - lo) / span) * (h - padY * 2); }
+
+    var svg = document.createElementNS(SVGNS, "svg");
+    svg.setAttribute("width", w); svg.setAttribute("height", h);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", pos.code + " " + (pos.name || "") + " 価格推移（詳細はテーブル表示を参照）");
+
+    function hline(yv, color, dash, width) {
+      var l = document.createElementNS(SVGNS, "line");
+      l.setAttribute("x1", 0); l.setAttribute("x2", w);
+      l.setAttribute("y1", yv); l.setAttribute("y2", yv);
+      l.setAttribute("stroke", color);
+      l.setAttribute("stroke-width", width || 1);
+      if (dash) l.setAttribute("stroke-dasharray", dash);
+      svg.appendChild(l);
+      return l;
+    }
+    hline(y(pos.take_profit), "var(--good)", "4,3", 1.5);
+    hline(y(pos.entry_price), "var(--baseline)", null, 1.5);
+    hline(y(pos.stop_loss), "var(--critical)", "4,3", 1.5);
+
+    if (points.length >= 2) {
+      var path = document.createElementNS(SVGNS, "path");
+      var d = points.map(function (p, i) {
+        return (i === 0 ? "M" : "L") + x(i).toFixed(1) + "," + y(p.price).toFixed(1);
+      }).join(" ");
+      path.setAttribute("d", d);
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "var(--series-1)");
+      path.setAttribute("stroke-width", "2");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(path);
+    }
+
+    /* クロスヘア（ポインタ位置に最も近いXへスナップ） */
+    var crosshair = document.createElementNS(SVGNS, "line");
+    crosshair.setAttribute("y1", padY - 4); crosshair.setAttribute("y2", h - padY + 4);
+    crosshair.setAttribute("stroke", "var(--grid)");
+    crosshair.setAttribute("stroke-width", "1");
+    crosshair.style.display = "none";
+    svg.appendChild(crosshair);
+
+    function tipTextFor(p) {
+      var src = p.source ? "出典: " + p.source + (p.source_time ? "（" + p.source_time + "）" : "") : "";
+      return { value: fmtPrice(p.price) + "　" + p.date, sub: src };
+    }
+
+    points.forEach(function (p, i) {
+      var c = document.createElementNS(SVGNS, "circle");
+      var isLast = i === points.length - 1;
+      c.setAttribute("cx", x(i)); c.setAttribute("cy", y(p.price));
+      c.setAttribute("r", isLast ? 4.5 : 3.5);
+      c.setAttribute("fill", "var(--series-1)");
+      c.setAttribute("stroke", "var(--surface-1)");
+      c.setAttribute("stroke-width", "2");
+      c.setAttribute("tabindex", "0");
+      c.setAttribute("aria-label", p.date + " " + fmtPrice(p.price));
+      c.addEventListener("focus", function () {
+        var r = c.getBoundingClientRect();
+        var t = tipTextFor(p);
+        showTip(r.left + r.width / 2, r.top, t.value, t.sub);
+      });
+      c.addEventListener("blur", hideTip);
+      svg.appendChild(c);
+    });
+
+    /* svg全面をヒットターゲットにする（最近傍スナップ） */
+    svg.addEventListener("pointermove", function (evt) {
+      var rect = svg.getBoundingClientRect();
+      var px = evt.clientX - rect.left;
+      var best = 0, bestD = Infinity;
+      for (var i = 0; i < points.length; i++) {
+        var d2 = Math.abs(x(i) - px);
+        if (d2 < bestD) { bestD = d2; best = i; }
+      }
+      crosshair.setAttribute("x1", x(best)); crosshair.setAttribute("x2", x(best));
+      crosshair.style.display = "";
+      var t = tipTextFor(points[best]);
+      showTip(rect.left + x(best), rect.top + y(points[best].price), t.value, t.sub);
+    });
+    svg.addEventListener("pointerleave", function () {
+      crosshair.style.display = "none";
+      hideTip();
+    });
+
+    wrap.appendChild(svg);
+    if (points.length >= 2) {
+      var dates = el("div", "chart-dates");
+      dates.appendChild(el("span", null, points[0].date));
+      dates.appendChild(el("span", null, points[points.length - 1].date));
+      wrap.appendChild(dates);
+    }
+  }
+
+  /* ---------- ポジションカード（保有・シャドー共用） ---------- */
+  function buildCard(id, pos, opts) {
+    var card = el("div", "card");
+    var head = el("div", "card-head");
+    var idBox = el("div");
+    idBox.appendChild(el("div", "card-code", pos.code));
+    idBox.appendChild(el("div", "card-name", pos.name || ""));
+    head.appendChild(idBox);
+    var badges = el("div");
+    if (pos.verdict) badges.appendChild(el("span", "badge badge-" + pos.verdict, pos.verdict));
+    head.appendChild(badges);
+    card.appendChild(head);
+
+    var points = pos.points || [];
+    var last = points.length ? points[points.length - 1] : null;
+    var state = pos.state || "OPEN";
+
+    if (last) {
+      var deltaPct = ((last.price - pos.entry_price) / pos.entry_price) * 100;
+      var priceRow = el("div", "price-row");
+      priceRow.appendChild(el("span", "price-now", fmtPrice(last.price)));
+      var deltaSpan = el("span", "price-delta " + deltaClass(deltaPct), fmtPct(deltaPct));
+      var vs = el("span", "vs", "対" + opts.entryLabel);
+      deltaSpan.appendChild(vs);
+      priceRow.appendChild(deltaSpan);
+      card.appendChild(priceRow);
+    }
+
+    var noteText = opts.entryLabel + " " + fmtPrice(pos.entry_price) +
+      "（" + (pos.entry_date || (points[0] && points[0].date) || "-") + "）・状態: " + state;
+    if (state !== "OPEN" && pos.settle_date) {
+      noteText += "（決済 " + pos.settle_date + (pos.settle_price !== undefined ? " @ " + fmtPrice(pos.settle_price) : "") + "）";
+    }
+    if (pos.confidence) noteText += "・確信度: " + pos.confidence;
+    if (typeof pos.weight_pct === "number") noteText += "・投入比率: " + pos.weight_pct + "%";
+    card.appendChild(el("div", "entry-note", noteText));
+
+    var chartWrap = el("div", "chart-wrap");
+    card.appendChild(chartWrap);
+    chartRegistry.push({ wrap: chartWrap, pos: pos });
+
+    if (last) {
+      var slPct = ((pos.stop_loss - last.price) / last.price) * 100;
+      var tpPct = ((pos.take_profit - last.price) / last.price) * 100;
+      var row = el("div", "barrier-row");
+      var slSpan = el("span");
+      slSpan.appendChild(el("span", "key key-sl"));
+      slSpan.appendChild(document.createTextNode("損切り " + fmtPrice(pos.stop_loss) + "（現在値から " + fmtPct(slPct, 1) + "）"));
+      var tpSpan = el("span");
+      tpSpan.appendChild(el("span", "key key-tp"));
+      tpSpan.appendChild(document.createTextNode("利確 " + fmtPrice(pos.take_profit) + "（" + fmtPct(tpPct, 1) + "）"));
+      row.appendChild(slSpan);
+      row.appendChild(tpSpan);
+      card.appendChild(row);
+    }
+
+    if (pos.note) card.appendChild(el("div", "struct-note", pos.note));
+    return card;
+  }
+
+  /* ---------- リスク枠タイル（D-015。ルール定数の転記＋台帳値からの固定式導出のみ） ---------- */
+  function renderRiskLimits() {
+    var stats = document.getElementById("risk-stats");
+    var positions = (DATA.portfolio && DATA.portfolio.positions) || {};
+    var held = Object.keys(positions)
+      .map(function (id) { return positions[id]; })
+      .filter(function (p) { return p.state !== "CLOSED"; });
+
+    var weightsOk = held.every(function (p) { return typeof p.weight_pct === "number"; });
+    var sumW = held.reduce(function (a, p) { return a + (p.weight_pct || 0); }, 0);
+    function pctOrNA(mult) {
+      if (held.length === 0) return "0.00%";
+      if (!weightsOk) return "算定不能";
+      return (sumW * mult).toFixed(2) + "%";
+    }
+    var heldNote = held.length === 0 ? "保有0件" : "HELD " + held.length + "件・露出 " + (weightsOk ? sumW.toFixed(1) + "%" : "算定不能（投入比率の記録なし）");
+
+    function tile(label, value, sub, small) {
+      var t = el("div", "stat-tile");
+      t.appendChild(el("div", "label", label));
+      t.appendChild(el("div", "value" + (small ? " small" : ""), value));
+      if (sub) t.appendChild(el("div", "sub", sub));
+      stats.appendChild(t);
+    }
+    tile("サイジング方式", "比例（現在資金残高基準）",
+      "投入比率の分母＝現金＋保有時価評価額（D-015）。確信度連動 高10%／中5%／低3%（D-011）", true);
+    tile("想定最大同時損失（PML）上限", "5.0%",
+      "Σ(投入比率×損切り幅10%) ≤ 資金の5%（D-015。機械照合はリスク管理部）");
+    tile("現在のPML", pctOrNA(0.10),
+      "全HELDが同時に-10%損切りした場合の資金比損失（" + heldNote + "）");
+    tile("ストレスシナリオ", pctOrNA(0.25),
+      "全HELD同時-25%ギャップの仮定シナリオ（表示のみ・機械照合対象外。D-015）");
+  }
+
+  /* ---------- 保有ポジション ---------- */
+  function renderReal() {
+    var wrap = document.getElementById("real-portfolio");
+    var stats = document.getElementById("real-stats");
+    var positions = (DATA.portfolio && DATA.portfolio.positions) || {};
+    var ids = Object.keys(positions);
+    if (ids.length === 0) {
+      stats.remove();
+      var box = el("div", "empty-state");
+      box.appendChild(el("div", "empty-title", "現在保有ポジションはありません"));
+      box.appendChild(el("div", null,
+        "corp/portfolio.md（as of " + ((DATA.portfolio && DATA.portfolio.as_of) || "-") + "）に状態=HELDの行が0件のため、表示するデータがありません。" +
+        "CEOが実際に発注・約定し、記録部へ報告した時点でここにカードとチャートが表示されます（ダミー値では埋めない — 絶対制約第2条）。"));
+      wrap.appendChild(box);
+      return;
+    }
+    var tile = el("div", "stat-tile");
+    tile.appendChild(el("div", "label", "保有中ポジション"));
+    tile.appendChild(el("div", "value", String(ids.length) + "件"));
+    stats.appendChild(tile);
+    var grid = el("div", "card-grid");
+    ids.forEach(function (id) {
+      grid.appendChild(buildCard(id, positions[id], { entryLabel: "エントリー" }));
+    });
+    wrap.appendChild(grid);
+  }
+
+  /* ---------- シャドーポートフォリオ ---------- */
+  function retPct(pos) {
+    var pts = pos.points || [];
+    if (!pts.length) return null;
+    var last = pts[pts.length - 1];
+    return ((last.price - pos.entry_price) / pos.entry_price) * 100;
+  }
+
+  function renderShadow() {
+    var positions = (DATA.shadow && DATA.shadow.positions) || {};
+    var ids = Object.keys(positions);
+    /* 損益率（現在値/仮想エントリー-1）が多い順。データなし（retがnull）は末尾に固定 */
+    ids.sort(function (a, b) {
+      var ra = retPct(positions[a]), rb = retPct(positions[b]);
+      if (ra === null && rb === null) return 0;
+      if (ra === null) return 1;
+      if (rb === null) return -1;
+      return rb - ra;
+    });
+    var stats = document.getElementById("shadow-stats");
+    var grid = document.getElementById("shadow-cards");
+    var tbody = document.querySelector("#shadow-table tbody");
+
+    var counts = { BUY: 0, WATCH: 0, PASS: 0 };
+    var open = 0, settled = 0, wins = 0;
+    var buySettled = 0, buyWins = 0;
+    var allSinglePoint = ids.length > 0;
+    var openRetSum = 0, openRetCount = 0;
+
+    ids.forEach(function (id) {
+      var pos = positions[id];
+      if (counts[pos.verdict] !== undefined) counts[pos.verdict] += 1;
+      var state = pos.state || "OPEN";
+      if (state === "OPEN") open += 1; else {
+        settled += 1; if (state === "HIT_PROFIT") wins += 1;
+        if (pos.verdict === "BUY") { buySettled += 1; if (state === "HIT_PROFIT") buyWins += 1; }
+      }
+      if ((pos.points || []).length !== 1) allSinglePoint = false;
+      if (state === "OPEN") {
+        var pts = pos.points || [];
+        var lastPt = pts.length ? pts[pts.length - 1] : null;
+        if (lastPt) {
+          openRetSum += ((lastPt.price - pos.entry_price) / pos.entry_price) * 100;
+          openRetCount += 1;
+        }
+      }
+
+      grid.appendChild(buildCard(id, pos, { entryLabel: "仮想エントリー" }));
+
+      var points = pos.points || [];
+      var last = points.length ? points[points.length - 1] : null;
+      var tr = document.createElement("tr");
+      function td(text) { var c = document.createElement("td"); c.textContent = text; tr.appendChild(c); }
+      td(id);
+      td(pos.code + " " + (pos.name || ""));
+      td(pos.verdict || "-");
+      td(state);
+      td(fmtPrice(pos.entry_price));
+      td(last ? fmtPrice(last.price) : "データなし");
+      td(last ? fmtPct(((last.price - pos.entry_price) / pos.entry_price) * 100) : "-");
+      td(fmtPrice(pos.stop_loss));
+      td(fmtPrice(pos.take_profit));
+      td(last ? last.date : "-");
+      td(last ? (last.source || "-") : "-");
+      tbody.appendChild(tr);
+    });
+
+    function tile(label, value, sub, small, container) {
+      var t = el("div", "stat-tile");
+      t.appendChild(el("div", "label", label));
+      t.appendChild(el("div", "value" + (small ? " small" : ""), value));
+      if (sub) t.appendChild(el("div", "sub", sub));
+      (container || stats).appendChild(t);
+    }
+
+    /* 主検定（BUY限定・D-021）: 卒業/撤退を左右するのはこのブロックのみ */
+    var primaryHeading = el("h3", null, "主検定（BUY限定）— 卒業/撤退の判定に使う指標");
+    primaryHeading.style.cssText = "font-size:13px;margin:4px 0 8px;";
+    stats.parentNode.insertBefore(primaryHeading, stats);
+    tile("BUY決済済み", buySettled + "件", "BUY判定のみ。HIT_PROFIT / HIT_LOSS の合計（D-021）");
+    tile("BUY勝率（主検定）", buySettled === 0 ? "—" : ((buyWins / buySettled) * 100).toFixed(1) + "%",
+      buySettled === 0 ? "BUY決済0件のため算定不能（逐次検定はcorp/tools/shadow_sprt.py参照）" : "HIT_PROFIT ÷ BUY決済済み件数（逐次検定の入力そのもの）");
+
+    var refHeading = el("h3", null, "参考: 全区分ベース（母集団診断・主検定外）");
+    refHeading.style.cssText = "font-size:13px;margin:22px 0 2px;color:var(--text-secondary);";
+    var refDesc = el("p", "section-desc", "発掘条件・スクリーニング母集団を判定によらず無差別に買った場合の値動き傾向。判定関数の成績ではなく、卒業/撤退・実弾規律の切替には使わない（D-021）。");
+    stats.parentNode.insertBefore(refHeading, stats.nextSibling);
+    stats.parentNode.insertBefore(refDesc, refHeading.nextSibling);
+    var refStats = el("div", "stat-row");
+    stats.parentNode.insertBefore(refStats, refDesc.nextSibling);
+
+    tile("追跡中（OPEN）", open + "件", "全" + ids.length + "件を登録済み", false, refStats);
+    tile("判定内訳", "BUY " + counts.BUY + " ／ WATCH " + counts.WATCH + " ／ PASS " + counts.PASS, "判定日の記録価格で仮想エントリー", true, refStats);
+    tile("決済済み（全区分）", settled + "件", "HIT_PROFIT / HIT_LOSS / EXPIRED の合計", false, refStats);
+    tile("勝率（全区分・参考）", settled === 0 ? "—" : ((wins / settled) * 100).toFixed(1) + "%",
+      settled === 0 ? "決済0件のため算定不能" : "HIT_PROFIT ÷ 決済済み件数（母集団診断の参考値。主検定はBUY限定ブロックを見ること）", false, refStats);
+    (function () {
+      var avg = openRetCount === 0 ? null : openRetSum / openRetCount;
+      var t = el("div", "stat-tile");
+      t.appendChild(el("div", "label", "OPEN分の平均含み損益率（全区分・参考）"));
+      var v = el("div", "value" + (avg === null ? " small" : ""), avg === null ? "—" : fmtPct(avg));
+      if (avg !== null) v.classList.add(deltaClass(avg));
+      t.appendChild(v);
+      t.appendChild(el("div", "sub", avg === null
+        ? "OPEN 0件のため算定不能"
+        : "OPEN " + openRetCount + "件の(現在値/仮想エントリー-1)を等金額仮定で単純平均（株数は追跡しない — D-012。母集団診断の参考値）"));
+      refStats.appendChild(t);
+    })();
+
+    var note = document.getElementById("points-note");
+    if (allSinglePoint) {
+      note.textContent = "現在の時系列は登録初日の1点のみ（各点にホバー/フォーカスで取得元・取得日時を表示）。価格ポイントは日次ルーチンの価格照合で蓄積される。";
+    } else {
+      note.textContent = "各点にホバー/フォーカスで日付・価格・取得元を表示。";
+    }
+  }
+
+  /* ---------- メタ情報・フッター ---------- */
+  function renderMeta() {
+    var pAsOf = (DATA.portfolio && DATA.portfolio.as_of) || "-";
+    var sAsOf = (DATA.shadow && DATA.shadow.as_of) || "-";
+    var asOf = pAsOf === sAsOf ? pAsOf : ("保有 " + pAsOf + " ／ シャドー " + sAsOf);
+    document.getElementById("meta-line").textContent =
+      "データ基準日: " + asOf + "　｜　出典: corp/portfolio.md・corp/shadow-portfolio.md・corp/data/price-history.json・corp/data/shadow-price-history.json";
+    var hasStructNote = Object.keys((DATA.shadow && DATA.shadow.positions) || {}).some(function (id) {
+      return DATA.shadow.positions[id].note;
+    });
+    if (hasStructNote) {
+      document.getElementById("footer-notes").textContent =
+        "注記付き銘柄（5803・285A・9984等）はD-013の構造的除外によりwatchlist上はCLOSEDだが、判定関数の検証目的でシャドーポートフォリオでは追跡を継続している。";
+      document.getElementById("footer-notes").appendChild(document.createElement("br"));
+    }
+  }
+
+  renderMeta();
+  renderRiskLimits();
+  renderReal();
+  renderShadow();
+  chartRegistry.forEach(function (c) { drawChart(c.wrap, c.pos); });
+
+  var resizeTimer = null;
+  window.addEventListener("resize", function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      chartRegistry.forEach(function (c) { drawChart(c.wrap, c.pos); });
+    }, 150);
+  });
+})();
+</script>
+
