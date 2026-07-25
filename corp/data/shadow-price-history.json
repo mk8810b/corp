@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-07-24",
+  "as_of": "2026-07-25",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -1250,6 +1250,142 @@
           "price": 516.4,
           "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
           "source_time": "2026-07-24 15:40"
+        }
+      ]
+    },
+    "SP-025": {
+      "code": "5408",
+      "name": "(株)中山製鋼所",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 642.0,
+      "stop_loss": 577.8,
+      "take_profit": 802.5,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 642.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-026": {
+      "code": "5852",
+      "name": "(株)アーレスティ",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 701.0,
+      "stop_loss": 630.9,
+      "take_profit": 876.25,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 701.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-027": {
+      "code": "1518",
+      "name": "三井松島ホールディングス(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2241.0,
+      "stop_loss": 2016.9,
+      "take_profit": 2801.25,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 2241.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-028": {
+      "code": "6548",
+      "name": "(株)旅工房",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 108.0,
+      "stop_loss": 97.2,
+      "take_profit": 135.0,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 108.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-029": {
+      "code": "5240",
+      "name": "ｍｏｎｏＡＩ(株)",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 213.0,
+      "stop_loss": 191.7,
+      "take_profit": 266.25,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 213.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-030": {
+      "code": "8541",
+      "name": "(株)愛媛銀行",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2794.0,
+      "stop_loss": 2514.6,
+      "take_profit": 3492.5,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 2794.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-031": {
+      "code": "5074",
+      "name": "(株)テスホールディングス",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 723.0,
+      "stop_loss": 650.7,
+      "take_profit": 903.75,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 723.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
+        }
+      ]
+    },
+    "SP-032": {
+      "code": "5253",
+      "name": "(株)カバー",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 1350.0,
+      "stop_loss": 1215.0,
+      "take_profit": 1687.5,
+      "points": [
+        {
+          "date": "2026-07-25",
+          "price": 1350.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定）",
+          "source_time": "2026-07-25（判定基準日2026-07-24大引け後の確定終値、企業調査メモ・判断メモに記載済み）"
         }
       ]
     }
