@@ -263,6 +263,18 @@ def load_exclusion_codes(
     return _parse_watchlist_active_codes(watchlist_path) | _parse_portfolio_held_codes(portfolio_path)
 
 
+NON_EQUITY_NAME_PAT = re.compile(
+    r"ベア|ブル|ＥＴＦ|ETF|ＥＴＮ|ETN|REIT|上場投信|上場投資信託|インデックス|連動証券"
+)
+
+
+def is_non_equity_instrument(name: str) -> bool:
+    """ETF/ETN等、個別株ではない上場商品らしき名称かを判定する（2026-07-30発見: 材料型
+    キーワード判定のみではETF/ETNの決算短信等が候補に混入するフィルタ漏れがあったため追加）。
+    """
+    return bool(NON_EQUITY_NAME_PAT.search(name))
+
+
 def scan(
     date_str: str,
     *,
@@ -289,6 +301,8 @@ def scan(
     uniq_codes = {}
     for t, c, n, title in material_rows:
         if c in exclude_codes:
+            continue
+        if is_non_equity_instrument(n):
             continue
         uniq_codes.setdefault(c, {"name": n, "titles": [], "times": []})
         uniq_codes[c]["titles"].append(title)
