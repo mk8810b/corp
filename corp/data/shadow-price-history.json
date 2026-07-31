@@ -1952,6 +1952,40 @@
           "source_time": "2026-07-30 15:51"
         }
       ]
+    },
+    "SP-035": {
+      "code": "7283",
+      "name": "(株)愛三工業（発掘経路: scan）",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2416,
+      "stop_loss": 2175,
+      "take_profit": 3020,
+      "points": [
+        {
+          "date": "2026-07-30",
+          "price": 2416,
+          "source": "kabutan.jp（curl取得。複数回取得+みんかぶ独立クロスチェックで収束確認。判断メモ確定終値）",
+          "source_time": "2026-07-30 23:16"
+        }
+      ]
+    },
+    "SP-036": {
+      "code": "3696",
+      "name": "(株)セレス（発掘経路: scan）",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2173,
+      "stop_loss": 1956,
+      "take_profit": 2717,
+      "points": [
+        {
+          "date": "2026-07-30",
+          "price": 2173,
+          "source": "kabutan.jp（curl取得。みんかぶ独立クロスチェックで収束確認。判断メモ確定終値）",
+          "source_time": "2026-07-30 23:15"
+        }
+      ]
     }
   }
 }
