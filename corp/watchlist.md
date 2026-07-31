@@ -61,7 +61,7 @@
 | 1518 | 三井松島ホールディングス(株) | 2026-07-25 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/1518-20260725.md |
 | 8541 | (株)愛媛銀行 | 2026-07-25 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/8541-20260725.md, outputs/judgement/8541-20260727-event.md（上振れ余地スコア中→低） |
 | 5074 | (株)テスホールディングス | 2026-07-25 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/5074-20260725.md |
-| 5253 | (株)カバー | 2026-07-25 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/5253-20260725.md, outputs/judgement/5253-20260727-event.md（上振れ余地スコア中→低） |
+| 5253 | (株)カバー | 2026-07-25 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/5253-20260725.md, outputs/judgement/5253-20260727-event.md（上振れ余地スコア中→低）, outputs/judgement/5253-20260731-event.md（5253-T7成立、一時的な利益確定・値ごろ感形成と判断、上振れ余地スコア低を維持） |
 | 6349 | (株)小森コーポレーション | 2026-07-29 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/6349-20260729-scan.md（発掘経路: scan、D-024能動スキャン試験運用初回）, outputs/judgement/6349-20260730-event.md（6349-T1成立・WATCH継続、統制語彙は3値のため「中の下限側」は本文注記に留め台帳優先度は「中」と記録） |
 | 4613 | 関西ペイント(株) | 2026-07-29 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/4613-20260729-scan.md（発掘経路: scan、D-024能動スキャン試験運用初回） |
 | 7283 | (株)愛三工業 | 2026-07-30 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/7283-20260730-scan.md（発掘経路: scan、D-024能動スキャン試験運用第2回） |
