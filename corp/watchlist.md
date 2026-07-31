@@ -53,7 +53,7 @@
 | 598A | (株)チャットプラス | 2026-07-18 | **CLOSED** | 低 | 2026-07-29 | outputs/judgement/598A-20260718.md, outputs/judgement/598A-20260723-event.md（上振れ余地スコア中→低）, outputs/judgement/598A-20260724-event.md（598A-T8を既定PASS引き金として新設）, outputs/judgement/598A-20260727-event.md（598A-T8成立・PASS確定によりWATCH解除） |
 | 5216 | (株)倉元製作所 | 2026-07-18 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/5216-20260718.md, outputs/judgement/5216-20260723-event.md（上振れ余地スコア中→低） |
 | 7359 | (株)東京通信グループ | 2026-07-18 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/7359-20260718.md, outputs/judgement/7359-20260730-event.md（7359-T4成立・WATCH継続だが2026-08-12決算を最終判断点とする期限付き延長〔7359-T7〕、上振れ余地スコア中→低） |
-| 7201 | 日産自動車(株) | 2026-07-18 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/7201-20260718.md |
+| 7201 | 日産自動車(株) | 2026-07-18 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/7201-20260718.md, outputs/judgement/7201-20260729-event.md（7201-T1成立、セクター物色によるバリュエーション是正、上振れ余地スコア中を維持）, outputs/judgement/7201-20260731-event.md（7201-T7成立、セクター物色の巻き戻し・同業比で最も脆弱な反落、上振れ余地スコア中→低） |
 | 8729 | ソニーフィナンシャルグループ(株) | 2026-07-18 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/8729-20260718.md |
 | 9501 | 東京電力ホールディングス(株) | 2026-07-18 | ACTIVE | 低 | 2026-07-31 | outputs/judgement/9501-20260718.md, outputs/judgement/9501-20260730-event.md（9501-T2成立、決算後の反落・セクター全体の格下げと判定、上振れ余地スコア中→低） |
 | 5408 | (株)中山製鋼所 | 2026-07-25 | ACTIVE | 中 | 2026-07-31 | outputs/judgement/5408-20260725.md |
