@@ -2118,6 +2118,125 @@
           "source_time": "2026-07-31 15:46"
         }
       ]
+    },
+    "SP-037": {
+      "code": "4549",
+      "name": "栄研化学(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2151,
+      "stop_loss": 1936,
+      "take_profit": 2689,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 2151,
+          "source": "kabutan.jp/stock/kabuka?code=4549&ashi=day&page=1（curl+UA指定。校閲JDG-O27が独立再取得し起案値と一致確認。判断メモ確定終値）",
+          "source_time": "2026-08-01T06:27:51Z"
+        }
+      ]
+    },
+    "SP-038": {
+      "code": "4052",
+      "name": "(株)フィーチャ",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 342,
+      "stop_loss": 307.8,
+      "take_profit": 427.5,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 342,
+          "source": "kabutan.jp/stock/kabuka?code=4052&ashi=day&page=1（curl+UA指定。校閲JDG-O28が独立再取得。判断メモ確定終値、前日比+80円/+30.53%ストップ高）",
+          "source_time": "2026-08-01T06:22Z"
+        }
+      ]
+    },
+    "SP-039": {
+      "code": "5367",
+      "name": "(株)ニッカトー",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 1230,
+      "stop_loss": 1107,
+      "take_profit": 1538,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 1230,
+          "source": "kabutan.jp/stock/?code=5367 および /stock/kabuka?code=5367&ashi=day&page=1（curl+UA指定。校閲JDG-O29が独立再取得し起案値と一致確認。判断メモ確定終値）",
+          "source_time": "2026-08-01T06:20-06:31Z"
+        }
+      ]
+    },
+    "SP-040": {
+      "code": "5410",
+      "name": "合同製鐵(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2840,
+      "stop_loss": 2556,
+      "take_profit": 3550,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 2840,
+          "source": "kabutan.jp/stock/?code=5410（curl+UA指定。校閲JDG-O30が独立再取得〔S2〕。判断メモ確定終値）",
+          "source_time": "2026-08-01（時刻詳細はメモ本文に未記載）"
+        }
+      ]
+    },
+    "SP-041": {
+      "code": "3863",
+      "name": "日本製紙(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 1376,
+      "stop_loss": 1238,
+      "take_profit": 1720,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 1376,
+          "source": "kabutan.jp/stock/?code=3863（判断メモ記載の企業調査メモ引用値。判断メモ確定終値）",
+          "source_time": "2026-08-01T05:54:28Z"
+        }
+      ]
+    },
+    "SP-042": {
+      "code": "8053",
+      "name": "住友商事(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 1670.0,
+      "stop_loss": 1503.0,
+      "take_profit": 2087.5,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 1670.0,
+          "source": "kabutan.jp/stock/?code=8053（curl+UA指定。校閲JDG-O32が独立再取得し起案値と一致確認。判断メモ確定終値、前日比+78.0円/+4.90%）",
+          "source_time": "2026-08-01T06:24Z"
+        }
+      ]
+    },
+    "SP-043": {
+      "code": "2130",
+      "name": "(株)メンバーズ",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 888,
+      "stop_loss": 799.2,
+      "take_profit": 1110.0,
+      "points": [
+        {
+          "date": "2026-07-31",
+          "price": 888,
+          "source": "kabutan.jp/stock/kabuka?code=2130（curl+UA指定。判断メモ確定終値、前日比-212円/-19.27%）",
+          "source_time": "2026-08-01T06:24:24Z"
+        }
+      ]
     }
   }
 }
