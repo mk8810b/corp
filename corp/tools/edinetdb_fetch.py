@@ -82,6 +82,7 @@ import datetime as dt
 import json
 import os
 import sys
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -341,9 +342,19 @@ def _print_resolve(result: dict, expect_name: Optional[str]) -> int:
 
     if expect_name:
         actual = str(matched.get("name_ja") or "")
-        # 「株式会社」「(株)」等の表記ゆれを吸収して比較する
+
         def _norm(s: str) -> str:
-            for noise in ("株式会社", "(株)", "（株）", " ", "　"):
+            """社名比較用の正規化。
+
+            EDINET DBは社名を全角で保持する（例: 「ＪＢＣＣホールディングス株式会社」）ため、
+            半角で書かれた上流の記載（例: 「JBCCホールディングス」）とそのまま比較すると
+            誤って不一致になる。NFKC正規化で全角/半角・大小文字を吸収した上で、
+            法人格表記のゆれを落として比較する。
+            （2026-08-03の朝スキャン実運用で9889に誤検知が出たため修正。誤検知は不要な
+            差し戻しを招き、ゲートの信頼性を損なうため実害がある。）
+            """
+            s = unicodedata.normalize("NFKC", s).lower()
+            for noise in ("株式会社", "(株)", "有限会社", "合同会社", " ", "　", "・", "．", "."):
                 s = s.replace(noise, "")
             return s
         if _norm(expect_name) and _norm(expect_name) in _norm(actual):
