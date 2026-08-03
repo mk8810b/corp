@@ -170,6 +170,12 @@
           "corrected_from": 20,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 19.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -277,6 +283,12 @@
           "price": 152.4,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 152.5,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -384,6 +396,12 @@
           "price": 28,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 28.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -494,6 +512,12 @@
           "corrected_from": 222.5,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 224.5,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -852,6 +876,12 @@
           "corrected_from": 912,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 922.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -953,6 +983,12 @@
           "price": 421,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 419.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1057,6 +1093,12 @@
           "corrected_from": 369.2,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 358.1,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1380,6 +1422,12 @@
           "price": 224,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 222.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1516,6 +1564,12 @@
           "price": 336.2,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 325.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1590,6 +1644,12 @@
           "corrected_from": 156.2,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 155.3,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1664,6 +1724,12 @@
           "corrected_from": 521.0,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 526.1,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1714,6 +1780,12 @@
           "corrected_from": 655,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 648.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1761,6 +1833,12 @@
           "price": 701,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 682.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1811,6 +1889,12 @@
           "corrected_from": 2330,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2312.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1861,6 +1945,12 @@
           "corrected_from": 106,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 109.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1911,6 +2001,12 @@
           "corrected_from": 213,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 206.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -1958,6 +2054,12 @@
           "price": 2781,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2675.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2042,6 +2144,12 @@
           "price": 1460,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 1457.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2071,6 +2179,12 @@
           "price": 1865,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 1874.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2100,6 +2214,12 @@
           "price": 2832.0,
           "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
           "source_time": "2026-07-31 15:46"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2838.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2126,6 +2246,12 @@
           "corrected_from": 2419,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2310.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2152,6 +2278,12 @@
           "corrected_from": 2213,
           "correction_note": "2026-08-03の日次ルーチンで、当時の記録値が現在のkabutan.jp確定値と不一致であることが判明したため訂正（INC-002）。原記録値はcorrected_fromに保存。原記録は2026-07-31 15:35〜15:46 JST（大引け直後、ドリフト収束前）の取得値。",
           "correction_source": "kabutan.jp/stock/kabuka（curl+UA、2026-08-03T08:2xZ再取得）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2124.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2169,6 +2301,12 @@
           "price": 2151,
           "source": "kabutan.jp/stock/kabuka?code=4549&ashi=day&page=1（curl+UA指定。校閲JDG-O27が独立再取得し起案値と一致確認。判断メモ確定終値）",
           "source_time": "2026-08-01T06:27:51Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2084.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2186,6 +2324,12 @@
           "price": 342,
           "source": "kabutan.jp/stock/kabuka?code=4052&ashi=day&page=1（curl+UA指定。校閲JDG-O28が独立再取得。判断メモ確定終値、前日比+80円/+30.53%ストップ高）",
           "source_time": "2026-08-01T06:22Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 422.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2203,6 +2347,12 @@
           "price": 1230,
           "source": "kabutan.jp/stock/?code=5367 および /stock/kabuka?code=5367&ashi=day&page=1（curl+UA指定。校閲JDG-O29が独立再取得し起案値と一致確認。判断メモ確定終値）",
           "source_time": "2026-08-01T06:20-06:31Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 1285.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2220,6 +2370,12 @@
           "price": 2840,
           "source": "kabutan.jp/stock/?code=5410（curl+UA指定。校閲JDG-O30が独立再取得〔S2〕。判断メモ確定終値）",
           "source_time": "2026-08-01（時刻詳細はメモ本文に未記載）"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 2872.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2237,6 +2393,12 @@
           "price": 1376,
           "source": "kabutan.jp/stock/?code=3863（判断メモ記載の企業調査メモ引用値。判断メモ確定終値）",
           "source_time": "2026-08-01T05:54:28Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 1345.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2254,6 +2416,12 @@
           "price": 1670.0,
           "source": "kabutan.jp/stock/?code=8053（curl+UA指定。校閲JDG-O32が独立再取得し起案値と一致確認。判断メモ確定終値、前日比+78.0円/+4.90%）",
           "source_time": "2026-08-01T06:24Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 1660.5,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2271,6 +2439,12 @@
           "price": 888,
           "source": "kabutan.jp/stock/kabuka?code=2130（curl+UA指定。判断メモ確定終値、前日比-212円/-19.27%）",
           "source_time": "2026-08-01T06:24:24Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 873.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2288,6 +2462,12 @@
           "price": 335,
           "source": "kabutan.jp/stock/kabuka?code=4531（curl+UA指定。校閲JDG-O34が独立再取得し起案値と全件一致を確認。判断メモ確定終値、前日比-3円/-0.89%）",
           "source_time": "2026-08-03T00:05Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 345.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     },
@@ -2305,6 +2485,12 @@
           "price": 1616,
           "source": "kabutan.jp/stock/kabuka?code=9889（curl+UA指定。校閲JDG-O33が独立再取得し起案値と一致を確認。判断メモ確定終値、前日比-35円/-2.12%）",
           "source_time": "2026-08-03T00:05Z"
+        },
+        {
+          "date": "2026-08-03",
+          "price": 1696.0,
+          "source": "kabutan.jp（確定終値ページ, curl取得, UA指定。9回取得・後半5回連続一致を確認）",
+          "source_time": "2026-08-03 15:58"
         }
       ]
     }
