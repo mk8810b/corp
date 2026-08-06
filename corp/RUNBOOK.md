@@ -311,6 +311,19 @@ www.anthropic.com。
 代替で全銘柄とも調査を完了できており、**Yahoo!ファイナンス単独に依存しないマルチソース運用が
 有効に機能した**。
 
+### TDnetのホスト名（`www.` の有無）でプロキシ応答が変わる（2026-08-06、日次ルーチンで発覚）
+
+TDnet日次一覧・開示PDFを取得する際、**`https://release.tdnet.info/...`（`www.`なし）は
+プロキシのCONNECTが502 Bad Gatewayで拒否される**一方、**`https://www.release.tdnet.info/...`
+（`www.`あり）は200 OK**であることを実測で確認した（同一時刻・同一User-Agent・同一パスで再現）。
+`curl -sS "$HTTPS_PROXY/__agentproxy/status"` の `recentRelayFailures` にも
+`release.tdnet.info:443 / connect_rejected` として記録される。
+
+**以後、TDnet関連のURLは必ず `www.release.tdnet.info` を使うこと。**
+`corp/tools/tdnet_scan.py` の `TDNET_URL_TMPL` は既に `www.` 付きであり修正不要（同ツールが
+正常動作する一方で手打ちの`curl`だけが失敗する、という紛らわしい切り分けになった原因がこれ）。
+**502を見てもTDnet側の障害・ネットワークポリシー変更と即断せず、まずホスト名を確認すること。**
+
 ### kabutan.jpライブ相場欄の場中/引け後微小変動（2026-07-17、日次ルーチンで発覚・対策済み）
 
 シャドーポートフォリオの日次価格照合中、kabutan.jp個別銘柄ページのライブ相場欄
