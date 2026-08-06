@@ -1,0 +1,18 @@
+{
+  "code": "5411", "name": "ＪＦＥホールディングス株式会社",
+  "source_url": "https://www.release.tdnet.info/inbs/140120260804508994.pdf",
+  "fetched_at": "2026-08-05T23:05:00Z",
+  "period": "2027年3月期第1四半期（原本どおりの正しい転記）",
+  "summary_columns": 6,
+  "items": [
+    {"label": "売上収益", "current": 1161178, "prior": 1115313, "stated_pct": 4.1},
+    {"label": "事業利益", "current": 32313, "prior": 16261, "stated_pct": 98.7},
+    {"label": "税引前四半期利益", "current": 40985, "prior": 10377, "stated_pct": 295.0},
+    {"label": "四半期利益", "current": 32267, "prior": 7775, "stated_pct": 315.0},
+    {"label": "親会社の所有者に帰属する四半期利益", "current": 31229, "prior": 7128, "stated_pct": 338.1},
+    {"label": "四半期包括利益合計額", "current": 46131, "prior": -26290, "stated_pct": null}
+  ],
+  "per_share": [
+    {"label": "基本的1株当たり四半期利益", "current": 49.09, "prior": 11.21}
+  ]
+}

@@ -79,6 +79,10 @@ EDINETの通常Web UI（`disclosure2.edinet-fsa.go.jp`）は`WebFetch`/`curl`で
 
 - [ ] **着手時に証券コードの同定検証（`--resolve --expect-name`）を実行し、上流工程の記載社名と
       一致することを確認したか（D-025。不一致なら差し戻し、調査を進めない）**
+- [ ] **決算短信・業績予想修正から数値を転記した場合、
+      `python3 corp/tools/tanshin_verify.py --json <転記JSON> --pdf <開示PDF>` を実行し
+      終了コード0を確認したか（D-026、`playbooks/screening.md` 2-6節。
+      FAILが出た項目は原本を読み直すか「取得不能」と明記し、そのまま成果物に載せない）**
 - [ ] 全ての数値（株価・財務指標等）に取得元URLと取得日時が付いているか
 - [ ] 記憶ベース・推測ベースの数値が混入していないか
 - [ ] **EDINET DB由来の数値を使った場合、出典に「EDINET DB（二次情報源）」と明記したか。
