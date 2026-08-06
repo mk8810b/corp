@@ -45,6 +45,7 @@ import re
 import statistics
 import subprocess
 import sys
+import time
 import urllib.request
 from pathlib import Path
 from typing import Iterable, Optional
@@ -79,13 +80,32 @@ def _now_iso() -> str:
     return datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def _curl_get(url: str, timeout: int = 30) -> str:
-    r = subprocess.run(
-        ["curl", "-sS", "-A", UA, url], capture_output=True, timeout=timeout
-    )
-    if r.returncode != 0:
-        raise RuntimeError(f"curl failed (code={r.returncode}): {url}\n{r.stderr.decode('utf-8', 'replace')}")
-    return r.stdout.decode("utf-8", "replace")
+def _curl_get(url: str, timeout: int = 30, tries: int = 4) -> str:
+    """curlでGETする（一過性の失敗はリトライする）。
+
+    2026-08-06・08-07の朝スキャンで、数百銘柄のフロア照合の途中に一過性のcurl失敗
+    （code=35 `Recv failure: Connection reset by peer`、code=18 `Transferred a partial file`）が
+    発生し、**リトライが無いためスキャン全体が異常終了する**事象が2営業日連続で起きた。
+    ネットワーク層の一過性エラーで必須ルーチンが止まるのは実行可能性の問題であり、
+    判定基準・フィルタ条件・データソースには一切影響しない純粋な堅牢化として指数バックオフの
+    リトライを入れる（憲法第8章の範囲内。D-026と同じく「判定を変えず、失敗を減らすだけ」）。
+    リトライを尽くしても失敗した場合は従来どおり例外を送出する（第2条: 黙って空データを
+    返さない）。
+    """
+    last = None
+    for attempt in range(tries):
+        try:
+            r = subprocess.run(
+                ["curl", "-sS", "-A", UA, url], capture_output=True, timeout=timeout
+            )
+            if r.returncode == 0:
+                return r.stdout.decode("utf-8", "replace")
+            last = f"curl failed (code={r.returncode}): {url}\n{r.stderr.decode('utf-8', 'replace')}"
+        except subprocess.TimeoutExpired as e:  # noqa: PERF203
+            last = f"curl timeout ({timeout}s): {url}\n{e}"
+        if attempt < tries - 1:
+            time.sleep(2 * (attempt + 1))
+    raise RuntimeError(f"{last}\n（{tries}回リトライしても失敗）")
 
 
 def fetch_tdnet_day(date_str: str, max_pages: int = 12) -> list[tuple[str, str, str, str]]:
