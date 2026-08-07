@@ -181,12 +181,33 @@ def check_growth(items: list[dict], tol: float) -> list[Finding]:
             continue
 
         diff = abs(calc - stated)
-        if diff > tol:
+
+        # 【2026-08-07改良】短信は「百万円未満切捨て」で表示するため、転記した整数値の
+        # 背後にある真値は [x, x+1) の幅を持つ。絶対額が小さい項目ではこの丸めだけで
+        # 増減率が数pt〜数百pt動くため、固定許容幅 tol では構造的に誤検出（偽陽性）となる。
+        # 実例（5491、2026-08-07）: 純利益 当期263／前年9 は、真値のとりうる増減率が
+        # +2,530.0%〜+2,833.3% の幅を持ち、短信記載の +2,817.1% はその内側にある。
+        # そこで **切捨て前の真値がとりうる増減率レンジ** を計算し、stated がその内側に
+        # あれば整合とみなす（レンジは丸めの数学的帰結であり、検出力を落とす緩和ではない）。
+        lo_rate = (cur / (pri + 1.0) - 1.0) * 100.0 if pri + 1.0 > 0 else None
+        hi_rate = ((cur + 1.0) / pri - 1.0) * 100.0
+        in_trunc_range = (lo_rate is not None
+                          and lo_rate - tol <= stated <= hi_rate + tol)
+
+        if diff > tol and not in_trunc_range:
             out.append(Finding(
                 "FAIL", "増減率の整合",
                 f"{label}: 当期 {_fmt(cur)} ÷ 前年 {_fmt(pri)} = {calc:+.2f}% だが、"
                 f"短信記載は {stated:+.2f}%（差 {diff:.2f}pt > 許容 {tol}pt）。"
+                f"切捨て前の真値を考慮したレンジ [{lo_rate:+.2f}%, {hi_rate:+.2f}%] からも外れる。"
                 f"転記した当期値・前年同期値・増減率のいずれかが別の欄の値である"))
+        elif diff > tol:
+            out.append(Finding(
+                "WARN", "増減率の整合",
+                f"{label}: 再計算 {calc:+.2f}% と短信記載 {stated:+.2f}% の差 {diff:.2f}pt は"
+                f"許容 {tol}pt を超えるが、百万円未満切捨てによる真値のレンジ "
+                f"[{lo_rate:+.2f}%, {hi_rate:+.2f}%] の内側にあるため整合とみなす"
+                f"（絶対額が小さい項目では丸めの影響が大きい）"))
     return out
 
 
@@ -222,10 +243,18 @@ def _pct_variants(pct: float) -> list[str]:
     （数値部分は半角）が、記号は和文フォントのことがあるため両方を候補にする。
     """
     a = abs(pct)
-    body = f"{a:.1f}"
+    # 【2026-08-07追加】1,000%以上の増減率は短信が桁区切りカンマ付きで印刷する
+    # （実例: 5491の親会社株主帰属四半期純利益「（2,817.1％）」）。カンマ無しの表記しか
+    # 探していなかったため、正しい転記に対して検査6が誤ってFAILを出していた。
+    bodies = [f"{a:.1f}"]
+    if a >= 1000:
+        bodies.append(f"{a:,.1f}")
     if pct < 0:
-        return [f"△{body}", f"△ {body}", f"-{body}", f"−{body}", f"▲{body}"]
-    return [body]
+        out: list[str] = []
+        for b in bodies:
+            out += [f"△{b}", f"△ {b}", f"-{b}", f"−{b}", f"▲{b}"]
+        return out
+    return bodies
 
 
 def check_stated_pct_in_document(items: list[dict], text: str | None) -> list[Finding]:

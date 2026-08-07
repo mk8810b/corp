@@ -1,0 +1,36 @@
+{
+ "code": "5491",
+ "name": "日本金属株式会社",
+ "source_url": "https://www.release.tdnet.info/inbs/140120260806513500.pdf",
+ "fetched_at": "2026-08-07T07:30Z",
+ "period": "2027年3月期第1四半期",
+ "summary_columns": 4,
+ "items": [
+  {
+   "label": "売上高",
+   "current": 12773,
+   "prior": 12584,
+   "stated_pct": 1.5
+  },
+  {
+   "label": "営業利益",
+   "current": 434,
+   "prior": 153,
+   "stated_pct": 183.9
+  },
+  {
+   "label": "経常利益",
+   "current": 384,
+   "prior": 148,
+   "stated_pct": 158.9
+  },
+  {
+   "label": "親会社株主に帰属する四半期純利益（本文記載）",
+   "current": 263,
+   "prior": 9,
+   "stated_pct": 2817.1
+  }
+ ],
+ "per_share": [],
+ "dividend": []
+}
