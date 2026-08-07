@@ -1,0 +1,36 @@
+{
+ "code": "8111",
+ "name": "ゴールドウイン",
+ "source_url": "https://www.release.tdnet.info/inbs/140120260805509878.pdf",
+ "fetched_at": "2026-08-07T00:10Z",
+ "period": "2027年3月期第2四半期(中間期)",
+ "summary_columns": 4,
+ "items": [
+  {
+   "label": "売上高",
+   "current": 55600,
+   "prior": 59900,
+   "stated_pct": -7.2
+  },
+  {
+   "label": "営業利益",
+   "current": 4200,
+   "prior": 7000,
+   "stated_pct": -40.0
+  },
+  {
+   "label": "経常利益",
+   "current": 7000,
+   "prior": 9200,
+   "stated_pct": -23.9
+  },
+  {
+   "label": "中間純利益",
+   "current": 5400,
+   "prior": 6800,
+   "stated_pct": -20.6
+  }
+ ],
+ "per_share": [],
+ "dividend": []
+}

@@ -211,13 +211,23 @@ def check_growth(items: list[dict], tol: float) -> list[Finding]:
     return out
 
 
-def check_cross_contamination(items: list[dict]) -> list[Finding]:
+def check_cross_contamination(items: list[dict], corroborated: set | None = None) -> list[Finding]:
     """列の相互汚染を検査する（検査2）。
 
-    ある項目の prior が、別項目の current と一致する場合に FAIL とする。
-    表の列を横にずらして読むと必ずこの形になる。
+    ある項目の prior が、別項目の current と一致する場合を疑う。表の列を横にずらして読むと
+    必ずこの形になるためである。
+
+    **【2026-08-07改良】偶然の一致による偽陽性の抑制。** 2営業日で3件の偽陽性が確認された
+    （8111ゴールドウイン: 前回予想の営業利益7,000と修正後の経常利益7,000／5408中山製鋼所／
+    4613関西ペイント。いずれも原本で確認したところ列ずれではなく同額の偶然の一致だった）。
+    そこで、**当該2項目の双方について検査6（増減率の原本照合）が通っている場合は WARN へ
+    降格する**。検査6が通っているとは「転記した増減率が開示本文に実際に印刷されている」
+    ということであり、その増減率は当期値と前年同期値の組を独立に裏づける。列をずらして
+    読んでいれば、ずれた組に対応する増減率が原本に印刷されている可能性は極めて低い。
+    検査6が通っていない項目（`--pdf` 未指定の場合を含む）については従来どおり FAIL とする。
     """
     out: list[Finding] = []
+    corroborated = corroborated if corroborated is not None else set()
     cur_by_label = {it.get("label"): it.get("current")
                     for it in items if it.get("current") is not None}
     for it in items:
@@ -228,12 +238,34 @@ def check_cross_contamination(items: list[dict]) -> list[Finding]:
             if other_label == label:
                 continue
             if other_cur == pri:
-                out.append(Finding(
-                    "FAIL", "列の相互汚染",
-                    f"「{label}」の前年同期値 {_fmt(pri)} が、"
-                    f"「{other_label}」の当期値と一致している。"
-                    f"表の列を横にずらして読んだ可能性が高い（前年同期の行を読み直すこと）"))
+                both_ok = label in corroborated and other_label in corroborated
+                if both_ok:
+                    out.append(Finding(
+                        "WARN", "列の相互汚染",
+                        f"「{label}」の前年同期値 {_fmt(pri)} が「{other_label}」の当期値と"
+                        f"一致しているが、**両項目とも検査6（増減率の原本照合）が通っている**ため"
+                        f"偶然の同額とみなす（列ずれであれば原本に対応する増減率は印刷されない）"))
+                else:
+                    out.append(Finding(
+                        "FAIL", "列の相互汚染",
+                        f"「{label}」の前年同期値 {_fmt(pri)} が、"
+                        f"「{other_label}」の当期値と一致している。"
+                        f"表の列を横にずらして読んだ可能性が高い（前年同期の行を読み直すこと）"))
     return out
+
+
+def _corroborated_labels(items: list[dict], text: str | None) -> set:
+    """検査6（増減率の原本照合）が通った項目のラベル集合を返す（検査2の降格判定に使う）。"""
+    if text is None:
+        return set()
+    ok = set()
+    for it in items:
+        stated = it.get("stated_pct", None)
+        if stated is None:
+            continue
+        if any(v in text for v in _pct_variants(float(stated))):
+            ok.add(it.get("label"))
+    return ok
 
 
 def _pct_variants(pct: float) -> list[str]:
@@ -414,7 +446,7 @@ def verify(payload: dict, tol: float = DEFAULT_TOL,
     findings: list[Finding] = []
     findings += check_growth(items, tol)
     findings += check_stated_pct_in_document(items, text)
-    findings += check_cross_contamination(items)
+    findings += check_cross_contamination(items, _corroborated_labels(items, text))
     findings += check_completeness(items, payload.get("summary_columns"))
     findings += check_duplicate_current(items)
     findings += check_split_basis(per_share, dividend, split_notes)
