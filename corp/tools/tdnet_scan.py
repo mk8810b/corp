@@ -108,7 +108,7 @@ def _curl_get(url: str, timeout: int = 30, tries: int = 4) -> str:
     raise RuntimeError(f"{last}\n（{tries}回リトライしても失敗）")
 
 
-def fetch_tdnet_day(date_str: str, max_pages: int = 12) -> list[tuple[str, str, str, str]]:
+def fetch_tdnet_day(date_str: str, max_pages: int = 40) -> list[tuple[str, str, str, str]]:
     """指定日（YYYY-MM-DD）のTDnet日次一覧を全ページ取得する。
 
     戻り値: [(時刻HH:MM, コード, 会社名, 表題), ...]（一覧の掲載順）
@@ -118,6 +118,12 @@ def fetch_tdnet_day(date_str: str, max_pages: int = 12) -> list[tuple[str, str, 
     （例: 実際の証券コード「3903」→ TDnet表示「39030」、「310A」→「310A0」）。
     本関数は末尾1桁を除去し、他の台帳（corp/watchlist.md・corp/portfolio.md等）と
     同じ4桁（英字混在含む）の証券コード表記に正規化して返す。
+
+    **打ち切り検出（INC-008、2026-08-08）**: ページ内の「全N件」表記を正とし、
+    max_pages を使い切ってもN件に達しなかった場合は**部分結果を返さずRuntimeErrorを送出する**。
+    旧実装（max_pages=12＝1,200件）は決算集中日に無警告で打ち切っており、
+    2026-08-07（実件数1,627件）の開示フラグ判定を誤らせた。取得漏れは「開示なし」と
+    区別がつかず、絶対制約第2条の「取得不能は取得不能と明記する」を機械的に破る。
     """
     yyyymmdd = date_str.replace("-", "")
     rows: list[tuple[str, str, str, str]] = []
@@ -134,6 +140,21 @@ def fetch_tdnet_day(date_str: str, max_pages: int = 12) -> list[tuple[str, str, 
         rows.extend(page_rows)
         if total is not None and len(rows) >= total:
             break
+    else:
+        # max_pages を使い切ってもループを抜けなかった場合（break されなかった場合）。
+        # 「全N件」が読めていてN件に届いていないなら、部分結果は返さない（INC-008）。
+        if total is not None and len(rows) < total:
+            raise RuntimeError(
+                f"TDnet日次一覧の取得が打ち切られました: {date_str} は全{total}件だが"
+                f"{len(rows)}件しか取得できていない（max_pages={max_pages}）。"
+                f"max_pages を増やして再実行してください。"
+                f"部分結果を「開示なし」と誤読しないため、あえて例外にしています（INC-008）。"
+            )
+    if total is not None and len(rows) < total:
+        raise RuntimeError(
+            f"TDnet日次一覧の取得が不完全です: {date_str} は全{total}件だが{len(rows)}件のみ取得"
+            f"（ページ途中で行が0件になった可能性）。部分結果は返しません（INC-008）。"
+        )
     normalized = [(t, code[:-1] if len(code) == 5 else code, name, title) for t, code, name, title in rows]
     return normalized
 
