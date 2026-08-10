@@ -1746,7 +1746,10 @@
      "source": "kabutan.jp（curl取得、複数回取得+みんかぶ独立クロスチェックで収束確認）",
      "source_time": "2026-07-30 15:51"
     }
-   ]
+   ],
+   "settle_date": "2026-07-30",
+   "settle_price": 140,
+   "note": "【2026-08-10 台帳整合の是正】本JSONに settle_date / settle_price が欠落していたため、正本 `corp/shadow-portfolio.md` の記載（決済日2026-07-30・決済価格140円・損益-11.39%）から補記した。状態 HIT_LOSS は両台帳で一致しており、判定・集計への影響はない。"
   },
   "SP-022": {
    "code": "7201",
