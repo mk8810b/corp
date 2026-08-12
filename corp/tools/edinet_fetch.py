@@ -18,6 +18,15 @@ Syntropia Research 企業調査部（RSH）向け。D-012（エッジ仮説: 適
   メール確認コード入力＋SMS/自動音声による多要素認証を要する対話的フローであり、
   自動化エージェントのこのセッション内では完結できない（登録はCEOが行う必要がある。
   詳細は REGISTRATION_HELP 定数、および corp/RUNBOOK.md「既知の技術的制約」節を参照）。
+
+  **【2026-08-12 追記・重要】APIキーの登録は2026-07-09にCEOが完了しており、環境変数
+  `EDINET_API_KEY` は本環境に恒久登録済みである（corp/RUNBOOK.md「既知の技術的制約」節、
+  2026-07-09完全解決の記載を参照）。上記の「登録はCEOが行う必要がある」は登録前の
+  記述であり、現状には当てはまらない。**
+  この陳腐化した記述が原因で、2026-08-12の判断メモ起案（JDG-S76、4751）が
+  「EDINETはAPIキー未登録のため独立照合は取得不能」と誤って記載した（校閲JDG-O67が是正）。
+  **`list_documents_by_date()`・`search_documents()`・`download_document()` は
+  いずれもそのまま実行できる。「取得不能」と書く前に必ず実行して確かめること（絶対制約第2条）。**
 - 一方、証券コード⇔EDINETコードの対応表（EDINETコードリスト）は認証不要の公開ZIPとして
   配布されており（https://disclosure2dl.edinet-fsa.go.jp/searchdocument/codelist/Edinetcode.zip）、
   このツールはAPIキーが無くてもコード解決までは実行できる（実際に9432→E04430等で検証済み）。
