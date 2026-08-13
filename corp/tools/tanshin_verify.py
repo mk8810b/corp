@@ -449,6 +449,36 @@ def verify(payload: dict, tol: float = DEFAULT_TOL,
     per_share = payload.get("per_share", []) or []
     dividend = payload.get("dividend", []) or []
 
+    # 不正な形の入力の遮断（2026-08-14追加。INC-009「空転記の遮断」と同系統）
+    #
+    # `items` 等の要素が dict でない（文字列のリスト等）場合、従来は check_growth の
+    # `it.get(...)` で AttributeError を送出して**Pythonのトレースバックのまま異常終了**していた。
+    # 実際に2026-08-14の一次読解（SCR-H40）で発生している。
+    # トレースバックは終了コード1で終わるため「ツールが落ちた」ことは伝わるが、
+    # **入力の形が誤っているという原因が読み取れず**、担当が原因を特定できないまま
+    # 検算を諦める（＝ゲートが無効化される）経路になりうる。
+    # ゲートは「実行したこと」ではなく「中身を検査したこと」を保証しなければならないため、
+    # 不正な形の入力は**明示的なFAIL（終了コード2）**として扱い、直し方を出力する。
+    def _bad(name: str, seq: object) -> "Finding | None":
+        if not isinstance(seq, list):
+            return Finding("FAIL", "入力形式の遮断",
+                           f"`{name}` がリストではない（{type(seq).__name__}）。"
+                           f"JSONの `{name}` は**オブジェクトの配列**でなければならない。")
+        for i, el in enumerate(seq):
+            if not isinstance(el, dict):
+                return Finding("FAIL", "入力形式の遮断",
+                               f"`{name}[{i}]` がオブジェクトではない（{type(el).__name__}: "
+                               f"{str(el)[:40]!r}）。各要素は "
+                               f'`{{"label": "...", "current": 123, "prior": 456, "stated_pct": 7.8}}` '
+                               f"の形のオブジェクトである必要がある。"
+                               f"**文字列の配列を渡していないか確認すること。**")
+        return None
+
+    fmt_bad = [f for f in (_bad("items", items), _bad("per_share", per_share),
+                           _bad("dividend", dividend)) if f is not None]
+    if fmt_bad:
+        return fmt_bad, []
+
     split_notes: list[str] = []
     text: str | None = None
     if pdf:
