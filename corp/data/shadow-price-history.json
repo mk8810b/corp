@@ -4579,6 +4579,57 @@
           "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
         }
       ]
+    },
+    "SP-061": {
+      "code": "6033",
+      "name": "(株)エクストリーム",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 1706.0,
+      "stop_loss": 1535.4,
+      "take_profit": 2132.5,
+      "points": [
+        {
+          "date": "2026-08-14",
+          "price": 1706.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
+          "source_time": "2026-08-14 大引け後の確定終値（判定基準日）"
+        }
+      ]
+    },
+    "SP-062": {
+      "code": "7256",
+      "name": "河西工業(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 451.0,
+      "stop_loss": 405.9,
+      "take_profit": 563.75,
+      "points": [
+        {
+          "date": "2026-08-14",
+          "price": 451.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
+          "source_time": "2026-08-14 大引け後の確定終値（判定基準日）"
+        }
+      ]
+    },
+    "SP-063": {
+      "code": "8165",
+      "name": "(株)千趣会",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 110.0,
+      "stop_loss": 99.0,
+      "take_profit": 137.5,
+      "points": [
+        {
+          "date": "2026-08-14",
+          "price": 110.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
+          "source_time": "2026-08-14 大引け後の確定終値（判定基準日）"
+        }
+      ]
     }
   }
 }
