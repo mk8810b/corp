@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-08-14",
+  "as_of": "2026-08-15",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -4526,6 +4526,57 @@
           "price": 2780.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:11Z"
+        }
+      ]
+    },
+    "SP-058": {
+      "code": "4052",
+      "name": "(株)フィーチャ",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 629.0,
+      "stop_loss": 566.1,
+      "take_profit": 786.25,
+      "points": [
+        {
+          "date": "2026-08-14",
+          "price": 629.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
+        }
+      ]
+    },
+    "SP-059": {
+      "code": "5074",
+      "name": "(株)テスホールディングス",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 649.0,
+      "stop_loss": 584.1,
+      "take_profit": 811.25,
+      "points": [
+        {
+          "date": "2026-08-14",
+          "price": 649.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
+        }
+      ]
+    },
+    "SP-060": {
+      "code": "4073",
+      "name": "(株)ジィ・シィ企画",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 570.0,
+      "stop_loss": 513.0,
+      "take_profit": 712.5,
+      "points": [
+        {
+          "date": "2026-08-14",
+          "price": 570.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
         }
       ]
     }
