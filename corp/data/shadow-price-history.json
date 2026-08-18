@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-08-15",
+  "as_of": "2026-08-17",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -224,6 +224,12 @@
           "price": 20.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:15Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 22.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -387,6 +393,12 @@
           "price": 162.7,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:55Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 161.5,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -716,6 +728,12 @@
           "price": 234.9,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:56Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 234.9,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -1130,6 +1148,12 @@
           "price": 935.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:32Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 951.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -1287,6 +1311,12 @@
           "price": 438.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:44Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 436.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -1447,6 +1477,12 @@
           "price": 342.8,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:43Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 348.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -1826,6 +1862,12 @@
           "price": 258.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:47Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 268.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2021,6 +2063,12 @@
           "price": 330.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:41Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 330.2,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2151,6 +2199,12 @@
           "price": 155.8,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:53Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 155.6,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2281,6 +2335,12 @@
           "price": 516.8,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:58Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 522.7,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2387,6 +2447,12 @@
           "price": 638.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:29Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 637.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2490,6 +2556,12 @@
           "price": 674.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:33Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 678.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2596,6 +2668,12 @@
           "price": 2349.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:32:55Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2310.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2700,6 +2778,12 @@
           "price": 110.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:38Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 110.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2806,6 +2890,12 @@
           "price": 206.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:23Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 211.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -2909,6 +2999,12 @@
           "price": 3065.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:52Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 3190.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3049,6 +3145,12 @@
           "price": 1529.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:24Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1538.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3134,6 +3236,12 @@
           "price": 1916.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:35Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1942.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3219,6 +3327,12 @@
           "price": 2938.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:18Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2924.5,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3301,6 +3415,12 @@
           "price": 2320.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:46Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2305.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3383,6 +3503,12 @@
           "price": 2066.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:01Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2147.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3456,6 +3582,12 @@
           "price": 2287.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:14Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2342.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3574,6 +3706,12 @@
           "price": 1285.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:27Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1330.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3647,6 +3785,12 @@
           "price": 2965.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:30Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2942.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3720,6 +3864,12 @@
           "price": 1420.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:03Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1338.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3793,6 +3943,12 @@
           "price": 1791.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:50Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1750.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3866,6 +4022,12 @@
           "price": 942.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:32:57Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 951.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -3937,6 +4099,12 @@
           "price": 360.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:12Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 363.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4010,6 +4178,12 @@
           "price": 1735.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:59Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1704.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4072,6 +4246,12 @@
           "price": 431.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:00Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 436.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4134,6 +4314,12 @@
           "price": 1689.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:32:58Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1684.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4196,6 +4382,12 @@
           "price": 1475.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:06Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1485.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4203,7 +4395,7 @@
       "code": "4073",
       "name": "(株)ジィ・シィ企画",
       "verdict": "WATCH",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 566,
       "stop_loss": 509.4,
       "take_profit": 707.5,
@@ -4238,6 +4430,12 @@
           "price": 570.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:09Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 507.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4318,6 +4516,12 @@
           "price": 1415.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:36Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1395.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4360,6 +4564,12 @@
           "price": 2002.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:39Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1965.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4402,6 +4612,12 @@
           "price": 374.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:26Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 377.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4464,6 +4680,12 @@
           "price": 520.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:49Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 524.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4526,6 +4748,12 @@
           "price": 2780.0,
           "source": "kabutan.jp確定終値ページ（`https://kabutan.jp/stock/kabuka?code=<コード>&ashi=day&page=1`、curl+ブラウザ相当UA）。大引け(15:30 JST)から**+33分**の16:03 JSTと**+63分**の16:33 JSTの2ラウンド取得で43銘柄すべて完全一致・収束を確認。",
           "fetched_at": "2026-08-14T07:33:11Z"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 2800.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4543,6 +4771,12 @@
           "price": 629.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
           "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 580.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4560,6 +4794,12 @@
           "price": 649.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
           "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 686.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4567,7 +4807,7 @@
       "code": "4073",
       "name": "(株)ジィ・シィ企画",
       "verdict": "PASS",
-      "state": "OPEN",
+      "state": "HIT_LOSS",
       "entry_price": 570.0,
       "stop_loss": 513.0,
       "take_profit": 712.5,
@@ -4577,6 +4817,12 @@
           "price": 570.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
           "source_time": "2026-08-14 16:03/16:33 JST（大引け+33分・+63分の2ラウンド収束確認）"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 507.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4594,6 +4840,12 @@
           "price": 1706.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
           "source_time": "2026-08-14 大引け後の確定終値（判定基準日）"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 1665.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4611,6 +4863,12 @@
           "price": 451.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
           "source_time": "2026-08-14 大引け後の確定終値（判定基準日）"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 463.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     },
@@ -4628,6 +4886,12 @@
           "price": 110.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
           "source_time": "2026-08-14 大引け後の確定終値（判定基準日）"
+        },
+        {
+          "date": "2026-08-17",
+          "price": 108.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
+          "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
         }
       ]
     }
