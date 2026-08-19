@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-08-17",
+  "as_of": "2026-08-19",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -4892,6 +4892,40 @@
           "price": 108.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定）",
           "source_time": "2026-08-17 16:00 JST（大引け+30分）／16:35 JST（+65分）の2ラウンドで全44銘柄の当日行が完全一致（収束確認）"
+        }
+      ]
+    },
+    "SP-064": {
+      "code": "6444",
+      "name": "サンデン(株)",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 202.0,
+      "stop_loss": 181.8,
+      "take_profit": 252.5,
+      "points": [
+        {
+          "date": "2026-08-18",
+          "price": 202.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
+          "source_time": "2026-08-18 大引け後の確定終値（判定基準日）"
+        }
+      ]
+    },
+    "SP-065": {
+      "code": "7532",
+      "name": "(株)パン・パシフィック・インターナショナルＨＤ",
+      "verdict": "PASS",
+      "state": "OPEN",
+      "entry_price": 915.5,
+      "stop_loss": 823.95,
+      "take_profit": 1144.375,
+      "points": [
+        {
+          "date": "2026-08-18",
+          "price": 915.5,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
+          "source_time": "2026-08-18 大引け後の確定終値（判定基準日）"
         }
       ]
     }
