@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-08-22",
+  "as_of": "2026-08-24",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -5755,6 +5755,23 @@
           "date": "2026-08-21",
           "price": 746.0,
           "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。各判断メモに出典・取得日時を記録）",
+          "source_time": "2026-08-21 大引け後の確定終値（判定基準日）"
+        }
+      ]
+    },
+    "SP-070": {
+      "code": "9692",
+      "name": "(株)シーイーシー",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 2395.0,
+      "stop_loss": 2155.5,
+      "take_profit": 2993.75,
+      "points": [
+        {
+          "date": "2026-08-21",
+          "price": 2395.0,
+          "source": "kabutan.jp 確定終値ページ（curl取得, UA指定。判断メモ outputs/judgement/9692-20260824-scan.md に出典・取得日時を記録）",
           "source_time": "2026-08-21 大引け後の確定終値（判定基準日）"
         }
       ]
