@@ -1,6 +1,6 @@
 {
   "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
-  "as_of": "2026-08-25",
+  "as_of": "2026-08-26",
   "positions": {
     "SP-001": {
       "code": "8918",
@@ -6325,6 +6325,23 @@
           "price": 2473.0,
           "source": "kabutan.jp 日足ページ（curl＋ブラウザ相当UA）。確定終値プロトコル: 大引け+32分と+64分の2ラウンド取得で追跡46銘柄すべて完全一致を機械確認",
           "source_time": "2026-08-25 大引け後の確定終値（round1 2026-08-25T07:01:43Z / round2 同T07:33:43Z、両者一致）"
+        }
+      ]
+    },
+    "SP-071": {
+      "code": "5244",
+      "name": "(株)ｊｉｇ．ｊｐ",
+      "verdict": "WATCH",
+      "state": "OPEN",
+      "entry_price": 176.0,
+      "stop_loss": 158.4,
+      "take_profit": 220.0,
+      "points": [
+        {
+          "date": "2026-08-25",
+          "price": 176.0,
+          "source": "kabutan.jp 日足ページ（curl取得, UA指定）。判断メモ outputs/judgement/5244-20260826-scan.md に出典・取得日時を記録。RSK-O12が4系統目として独立再取得し一致を確認",
+          "source_time": "2026-08-25 大引け後の確定終値（判定基準日）"
         }
       ]
     }
