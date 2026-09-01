@@ -1,6 +1,6 @@
 {
  "_comment": "シャドーポートフォリオ(corp/shadow-portfolio.md)の価格時系列。日次ルーチンでOPENの仮想ポジションに当日価格を追記する。初期値は各判断メモに記録された判定基準日の株価。スキーマは playbooks/dev.md を参照。",
- "as_of": "2026-08-31",
+ "as_of": "2026-09-01",
  "positions": {
   "SP-001": {
    "code": "8918",
@@ -284,6 +284,12 @@
      "price": 22.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 22.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -507,6 +513,12 @@
      "price": 172.5,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 175.6,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -896,6 +908,12 @@
      "price": 237.1,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 241.1,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -1370,6 +1388,12 @@
      "price": 939.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 938.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -1587,6 +1611,12 @@
      "price": 435.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 437.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -1807,6 +1837,12 @@
      "price": 393.4,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 399.9,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -2503,6 +2539,12 @@
      "price": 328.5,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 338.9,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -2693,6 +2735,12 @@
      "price": 158.3,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 161.5,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -2883,6 +2931,12 @@
      "price": 538.1,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 572.3,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -3049,6 +3103,12 @@
      "price": 635.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 658.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -3212,6 +3272,12 @@
      "price": 704.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 697.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -3378,6 +3444,12 @@
      "price": 2381.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2374.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -3542,6 +3614,12 @@
      "price": 122.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 120.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -3708,6 +3786,12 @@
      "price": 225.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 221.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -3871,6 +3955,12 @@
      "price": 3145.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 3115.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -4201,6 +4291,12 @@
      "price": 2038.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2039.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -4346,6 +4442,12 @@
      "price": 2882.5,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2873.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -4488,6 +4590,12 @@
      "price": 2384.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2363.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -4630,6 +4738,12 @@
      "price": 2210.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2223.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -4763,6 +4877,12 @@
      "price": 2325.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2342.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -4941,6 +5061,12 @@
      "price": 1323.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1317.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5074,6 +5200,12 @@
      "price": 3050.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 3160.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5207,6 +5339,12 @@
      "price": 1416.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1400.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5340,6 +5478,12 @@
      "price": 1791.5,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1849.5,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5473,6 +5617,12 @@
      "price": 946.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 916.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5604,6 +5754,12 @@
      "price": 372.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 368.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5737,6 +5893,12 @@
      "price": 1791.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1733.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5859,6 +6021,12 @@
      "price": 500.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 480.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -5981,6 +6149,12 @@
      "price": 1704.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1718.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6103,6 +6277,12 @@
      "price": 1444.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1403.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6291,6 +6471,12 @@
      "price": 1598.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1590.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6393,6 +6579,12 @@
      "price": 1970.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1988.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6495,6 +6687,12 @@
      "price": 379.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 379.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6617,6 +6815,12 @@
      "price": 538.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 543.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6797,6 +7001,12 @@
      "price": 650.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 637.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6897,6 +7107,12 @@
      "price": 1686.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1688.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -6974,6 +7190,12 @@
      "price": 423.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 420.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7051,6 +7273,12 @@
      "price": 107.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 107.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7122,6 +7350,12 @@
      "price": 193.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 191.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7204,6 +7438,12 @@
      "price": 2988.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 3015.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7257,6 +7497,12 @@
      "price": 526.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 500.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7310,6 +7556,12 @@
      "price": 1011.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 1090.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7363,6 +7615,12 @@
      "price": 805.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 797.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7416,6 +7674,12 @@
      "price": 2568.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 2541.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   },
@@ -7457,6 +7721,12 @@
      "price": 186.0,
      "source": "kabutan.jp 日足（curl取得, UA指定）",
      "source_time": "2026-08-31 15:30 JST確定終値（取得 2026-09-01 07:56 JST）"
+    },
+    {
+     "date": "2026-09-01",
+     "price": 181.0,
+     "source": "kabutan.jp 日足（curl取得, UA指定）",
+     "source_time": "2026-09-01 15:30 JST確定終値（第1ラウンド 2026-09-01T07:01Z 取得値と確定値が完全一致）"
     }
    ]
   }
