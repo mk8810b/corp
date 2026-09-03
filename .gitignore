@@ -1,0 +1,6 @@
+corp/tools/.cache/
+corp/tools/downloads/
+__pycache__/
+*.pyc
+tmp_*.html
+tmp_*.txt

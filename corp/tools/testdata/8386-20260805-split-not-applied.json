@@ -1,0 +1,18 @@
+{
+  "code": "8386", "name": "株式会社百十四銀行",
+  "source_url": "https://www.release.tdnet.info/inbs/140120260728500662.pdf",
+  "fetched_at": "2026-08-05T22:58:00Z",
+  "period": "2027年3月期第1四半期（担当SCR-H19の報告を再現）",
+  "summary_columns": 3,
+  "items": [
+    {"label": "経常収益", "current": 41221, "prior": 24155, "stated_pct": 70.7},
+    {"label": "経常利益", "current": 9539, "prior": 7378, "stated_pct": 29.3},
+    {"label": "親会社株主に帰属する四半期純利益", "current": 6179, "prior": 4811, "stated_pct": 28.4}
+  ],
+  "per_share": [
+    {"label": "1株当たり四半期純利益", "current": 54.64, "prior": 42.32, "split_adjusted": true}
+  ],
+  "dividend": [
+    {"label": "年間配当", "current": 35.00, "prior": 234.00}
+  ]
+}
